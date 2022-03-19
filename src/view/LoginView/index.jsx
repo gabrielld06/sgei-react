@@ -11,16 +11,14 @@ import Stack from '@mui/material/Stack';
 import FormHelperText from '@mui/material/FormHelperText';
 import './styles.css';
 import { Link } from 'react-router-dom';
-import { borderRadius } from '@mui/system';
-
-
+import Supimpa from '../../assets/supimpa.png'
 
 export default function LoginView(props) {
     const { values, handleClickShowPassword } = props;
     return (
         <div className='boxStyle'>
             <Box sx={boxStyle}>
-                <img src='https://cdn.discordapp.com/attachments/906606035454791720/954543121675460618/supimpa.png' style={{paddingTop:10}}></img>
+                <img src={Supimpa} style={{paddingTop:10}}></img>
                 <Stack direction="column"
                     alignItems="center">
                     <TextField id="UserField" label="Usuário" variant="outlined" sx={userFieldStyle} />
@@ -34,10 +32,10 @@ export default function LoginView(props) {
                                 </IconButton>
                             </InputAdornment>)
                     }} />
-                    <Link to={`/cadastrar`}> <FormHelperText on sx={{m: -1, width: 150, paddingLeft: "95%"}}>Esqueceu a senha?</FormHelperText></Link>
+                    <Link to={`/forgetPassword`}> <FormHelperText sx={{m: -1, width: 150, paddingLeft: "95%"}}>Esqueceu a senha?</FormHelperText></Link>
                     <Button variant="contained" sx={{ width: '40%', m: 3 }} >Entrar</Button>
                     <Divider sx={{width: '95%'}} light style={{color:'gray'}}>ou</Divider>
-                    <Button variant="outlined" sx={{ width: '40%', m: 3 }} >Cadastre-se</Button>
+                    <Button variant="outlined" sx={{ width: '40%', m: 3 }} component={Link} to="/signup" >Cadastre-se</Button>
                 </Stack>
             </Box>
         </div>
