@@ -18,7 +18,7 @@ export default function LoginView(props) {
     return (
         <div className='boxStyle'>
             <Box sx={boxStyle}>
-                <img src={Supimpa} style={{paddingTop:10}}></img>
+                <img src={Supimpa} style={{paddingTop:10}} alt="Logo"></img>
                 <Stack direction="column"
                     alignItems="center">
                     <TextField id="UserField" label="Usuário" variant="outlined" sx={userFieldStyle} />

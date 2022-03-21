@@ -19,7 +19,7 @@ function a11yProps(index) {
 }
 
 export default function SignUpView(props) {
-    const { values, handleClickShowPassword, tabValues, handleChange, handleChangeIndex } = props;
+    const { userValues, handleChangeField, setUserValues, values, handleClickShowPassword, handleChange, handleChangeIndex } = props;
     const theme = useTheme();
 
     return (
@@ -27,7 +27,7 @@ export default function SignUpView(props) {
             <Box sx={ boxStyle }>
                 <AppBar position="static" sx={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
                     <Tabs
-                    value={tabValues}
+                    value={values.tabValues}
                     onChange={handleChange}
                     TabIndicatorProps={{style: {background:'black'}}}
                     textColor="inherit"
@@ -41,19 +41,19 @@ export default function SignUpView(props) {
                 </AppBar>
                 <SwipeableViews
                     axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                    index={tabValues}
+                    index={values.tabValues}
                     onChangeIndex={handleChangeIndex}>
-                    <TabPanel value={tabValues} index={0} dir={theme.direction}>
-                        <SignUpGrid values={values} handleClickShowPassword={handleClickShowPassword} userType={0} />
+                    <TabPanel value={values.tabValues} index={0} dir={theme.direction}>
+                        <SignUpGrid userValues={userValues} setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={0} />
                     </TabPanel>
-                    <TabPanel value={tabValues} index={1} dir={theme.direction}>
-                        <SignUpGrid values={values} handleClickShowPassword={handleClickShowPassword} userType={1} />
+                    <TabPanel value={values.tabValues} index={1} dir={theme.direction}>
+                        <SignUpGrid userValues={userValues} setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={1} />
                     </TabPanel>
-                    <TabPanel value={tabValues} index={2} dir={theme.direction}>
-                        <SignUpGrid values={values} handleClickShowPassword={handleClickShowPassword} userType={2} />
+                    <TabPanel value={values.tabValues} index={2} dir={theme.direction}>
+                        <SignUpGrid userValues={userValues} setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={2} />
                     </TabPanel>
                 </SwipeableViews>
-                <Button variant="contained" sx={{ m: 2 }} component={Link} to="/signup" >Cadastre-se</Button>
+                <Button variant="contained" sx={{ m: 2 }} component={Link} to="/signup" onClick={()=>{console.log(userValues);}} >Cadastre-se</Button>
             </Box>
         </div>
     );
