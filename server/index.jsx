@@ -1,9 +1,15 @@
 const express = require('express');
-const app = express();
+const connectDB = require('./config/db');
+const userRoutes = require('./routes/userRoutes');
 
-app.get('/login', (req, res) => {
+const app = express();
+connectDB();
+app.use(express.json());
+app.get('/', (req, res) => {
     res.send("hello world");
 })
+
+app.use('/api/users', userRoutes);
 
 app.listen(1337, ()=>{
     console.log("server ligado na porta 1337");
