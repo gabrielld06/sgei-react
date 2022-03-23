@@ -18,8 +18,10 @@ function a11yProps(index) {
   };
 }
 
+// concurrently extensão
+
 export default function SignUpView(props) {
-    const { userValues, handleChangeField, setUserValues, values, handleClickShowPassword, handleChange, handleChangeIndex } = props;
+    const { userValues, handleChangeField, setUserValues, values, handleClickShowPassword, handleChange, handleChangeIndex, handleSubmit } = props;
     const theme = useTheme();
 
     return (
@@ -53,7 +55,7 @@ export default function SignUpView(props) {
                         <SignUpGrid userValues={userValues} setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={2} />
                     </TabPanel>
                 </SwipeableViews>
-                <Button variant="contained" sx={{ m: 2 }} component={Link} to="/signup" onClick={()=>{console.log(userValues);}} >Cadastre-se</Button>
+                <Button variant="contained" sx={{ m: 2 }} component={Link} to="/signup" onClick={()=>{console.log(userValues);  handleSubmit(); console.log('passou?'); }} >Cadastre-se</Button>
             </Box>
         </div>
     );

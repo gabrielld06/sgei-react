@@ -1,7 +1,8 @@
 import React from 'react'
-// import asyncHandler from 'express-async-handler'
 import SignUpView from '../../view/SignUpView'
-// const User = require('../../model/Users')
+// import registerUser from '../RegisterController/registerController';
+// const asyncHandler = require('express-async-handler')
+import axios from "axios";
 
 export default function SignUpController() {
     
@@ -9,11 +10,51 @@ export default function SignUpController() {
         userName: "",
         password: "",
         email: "",
+        cpf: "",
         phone: "",
         adress: "",
         city: "",
         userType: 0,
     });
+
+    const handleSubmit = async () => {
+        console.log('handleSubmit chegou aqui hein');
+        const config = {
+            headers: {
+                "Content-type" : "application/json",
+                "Access-Control-Allow-Origin" : "true",
+                "Access-Control-Allow-Methods" : "GET, POST, PUT",
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        };
+        console.log('handleSubmit2 chegou aqui hein');
+        const username = userValues.userName;
+        const senha = userValues.password;
+        const email = userValues.email;
+        const endereco = userValues.adress;
+        const CPF_CNPJ = userValues.cpf;
+        console.log(username);
+        console.log(senha);
+        console.log(email);
+        console.log(endereco);
+        console.log(CPF_CNPJ);
+        const type = ['espectador', 'criador de evento', 'apresentador'];
+        const tipoUsuario = type[userValues.userType];
+        console.log('handleSubmit3 chegou aqui hein');
+        try {
+            const { data } = await axios.post(
+                "http://127.0.0.1:1337/api/users",
+                { username, tipoUsuario, senha, endereco, email, CPF_CNPJ },
+                config,
+            );
+            console.log('data');
+            console.log(data);
+            console.log('data');
+            
+        } catch {
+            console.log('deu merda porra');
+        }
+    };
 
     // FieldText Change handler
     const handleChangeField = (event, field) =>{
@@ -33,12 +74,6 @@ export default function SignUpController() {
         }));
         console.log(userValues);
     }
-
-    // Register User
-    // const registerUser = async (req, res) => {
-    //     const {userName, password, email, cpf, userType} = req.body;
-   
-    // };
 
     // Show/hide password handler
     const [values, setValues] = React.useState({
@@ -78,6 +113,7 @@ export default function SignUpController() {
             values={values} 
             handleClickShowPassword={handleClickShowPassword}
             handleChange={handleChange} 
-            handleChangeIndex={handleChangeIndex}/>
+            handleChangeIndex={handleChangeIndex}
+            handleSubmit={handleSubmit}/>
     )
 }
