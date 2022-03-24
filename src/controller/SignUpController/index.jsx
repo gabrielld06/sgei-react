@@ -2,32 +2,41 @@ import React from 'react'
 import SignUpView from '../../view/SignUpView'
 import axios from "axios";
 
+// TODO: tratar senhas diferentes; session token
+
 export default function SignUpController() {
     
     const [userValues, setUserValues] = React.useState({
-        userName: "",
+        username: "",
+        accountType: 0,
         password: "",
-        email: "",
-        cpf: "",
         phone: "",
-        adress: "",
+        address: "",
         city: "",
-        userType: 0,
+        email: "",
+        cpf_cnpj: "",
+        passVer : "",
     });
 
-    const handleSubmit = async (user, password, email) => {
-        // const type = ['espectador', 'criador de evento', 'apresentador'];
-        // const tipoUsuario = type[userValues.userType];
-        try {
-           
-            const { data } = await axios.post(
-              "http://127.0.0.1:5000/api/users",
-              { user, password, email }
-            );
-            
-            console.log(data);            
-        } catch {
-            console.log('deu merda porra');
+    const handleSubmit = async () => {
+        const { username, accountType, password, phone, address, city, email, cpf_cnpj, passVer } = userValues;
+        const type = ['espectador', 'criadorDeEvento', 'apresentador'];
+        const userType = type[accountType];
+
+        if(passVer !== password) {
+            // do something
+            console.log("senha diferente");
+        } else {
+            try {
+                const { data } = await axios.post(
+                "http://127.0.0.1:5000/api/users",
+                { username, userType, password, phone, address, city, email, cpf_cnpj }
+                );
+                // criar session token
+                console.log(data);            
+            } catch {
+                console.log('deu merda');
+            }
         }
     };
 
@@ -45,7 +54,7 @@ export default function SignUpController() {
     const handleChangeUser = (user) =>{
         setUserValues(userValues => ({
         ...userValues,
-        userType: user,
+        accountType: user,
         }));
         console.log(userValues);
     }

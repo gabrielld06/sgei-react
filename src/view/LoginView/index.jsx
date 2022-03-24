@@ -14,14 +14,14 @@ import { Link } from 'react-router-dom';
 import Supimpa from '../../assets/supimpa.png'
 
 export default function LoginView(props) {
-    const { values, handleClickShowPassword } = props;
+    const { values, handleClickShowPassword, handleChangeField, handleSubmit } = props;
     return (
         <div className='boxStyle'>
             <Box sx={boxStyle}>
                 <img src={Supimpa} style={{paddingTop:10}} alt="Logo"></img>
                 <Stack direction="column"
                     alignItems="center">
-                    <TextField id="UserField" label="Usuário" variant="outlined" sx={userFieldStyle} />
+                    <TextField id="UserField" label="Usuário" variant="outlined" sx={userFieldStyle} onChange={(e) => {handleChangeField(e, "email")}} />
                     <TextField id="PasswordField" label="Senha" variant="outlined" type={values.showPassword ? "text" : "password"} sx={userFieldStyle} InputProps={{
                         endAdornment: (
                             <InputAdornment position="start">
@@ -31,9 +31,9 @@ export default function LoginView(props) {
                                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>)
-                    }} />
+                    }} onChange={(e) => {handleChangeField(e, "password")}} />
                     <Link to={`/forgetPassword`}> <FormHelperText sx={{m: -1, width: 150, paddingLeft: "95%"}}>Esqueceu a senha?</FormHelperText></Link>
-                    <Button variant="contained" sx={{ width: '40%', m: 3 }} >Entrar</Button>
+                    <Button variant="contained" sx={{ width: '40%', m: 3 }} onClick={()=>{ handleSubmit() }} >Entrar</Button>
                     <Divider sx={{width: '95%'}} light style={{color:'gray'}}>ou</Divider>
                     <Button variant="outlined" sx={{ width: '40%', m: 3 }} component={Link} to="/signup" >Cadastre-se</Button>
                 </Stack>
