@@ -1,15 +1,20 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import connectDB from '../config/index.js'
-// import userRoutes from '../routes/userRoutes.js'
-import registerUser from '../src/controller/RegisterController/registerController.js';
-const app = express();
+import connectDB from './config/db.js'
+import userRoutes from './routes/userRoutes.js'
+import cors from 'cors'
+
 dotenv.config();
+
 connectDB();
+
+const app = express();
+
+app.use(cors()); // Pass through CORS block
 app.use(express.json());
 
-app.use('/api/users', registerUser);
+app.use("/api/users", userRoutes);
 
-app.listen(1337, ()=>{
-    console.log("server ligado na porta 1337");
+app.listen(5000, ()=>{
+    console.log("server ligado na porta 5000");
 });

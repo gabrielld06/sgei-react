@@ -1,6 +1,6 @@
-const { ErrorRounded } = require('@mui/icons-material');
-const asyncHandler = require('express-async-handler');
-const User = require('../models/userMoldels');
+// const { ErrorRounded } = require('@mui/icons-material');
+import asyncHandler from 'express-async-handler';
+import User from '../models/userMoldels.js'
 
 const registerUser = asyncHandler(async (req, res) => {
     const {user, email, password} = req.body;
@@ -34,4 +34,5 @@ const registerUser = asyncHandler(async (req, res) => {
         password,
     });
 });
-module.exports = {registerUser};
+
+export default registerUser;

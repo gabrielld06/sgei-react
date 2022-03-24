@@ -55,7 +55,7 @@ export default function SignUpView(props) {
                         <SignUpGrid userValues={userValues} setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={2} />
                     </TabPanel>
                 </SwipeableViews>
-                <Button variant="contained" sx={{ m: 2 }} component={Link} to="/signup" onClick={()=>{console.log(userValues);  handleSubmit(); console.log('passou?'); }} >Cadastre-se</Button>
+                <Button variant="contained" sx={{ m: 2 }} component={Link} to="/signup" onClick={()=>{console.log('botao'); handleSubmit(userValues.userName, userValues.password, userValues.email); console.log('botao');}} >Cadastre-se</Button>
             </Box>
         </div>
     );

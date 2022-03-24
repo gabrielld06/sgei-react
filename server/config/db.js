@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const mongoURI = "mongodb+srv://DRKnight:m2j60gxkfPq5DIZV@sogei.kcs0c.mongodb.net/test"
+import mongoose from "mongoose";
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(mongoURI, {
+        const conn = await mongoose.connect(process.env.MONGO_URI, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
         });
@@ -12,4 +11,5 @@ const connectDB = async () => {
         process.exit();
     }
 };
-module.exports = connectDB;
+
+export default connectDB;
