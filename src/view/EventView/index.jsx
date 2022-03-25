@@ -1,10 +1,14 @@
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function EventView() {
   return (
     
     // UI goes here
-
-    <div>EventView</div>
+    
+    <div>
+      <Header />
+      EventView
+    </div>
   )
 }
