@@ -8,11 +8,11 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 
 export default function SignUpGrid(props) {
-    const { userValues, handleChangeField, values, handleClickShowPassword, userType } = props;
+    const { handleChangeField, values, handleClickShowPassword, userType } = props;
     return (
         <Grid container >
             <Grid item xs container direction="row" justifyContent="space-evenly">
-                <TextField id="UserField" label="Usuário" variant="outlined" sx={userFieldStyle} value={userValues.username} onChange={(e) => {handleChangeField(e, "username")}}/>
+                <TextField id="UserField" label="Usuário" variant="outlined" sx={userFieldStyle} onChange={(e) => {handleChangeField(e, "username")}}/>
                 <TextField id="EmailField" label="Email" variant="outlined" sx={userFieldStyle} onChange={(e) => {handleChangeField(e, "email")}}/>
                 <TextField id="PasswordField" label="Senha" variant="outlined" type={values.showPassword ? "text" : "password"} sx={userFieldStyle} InputProps={{
                     endAdornment: (

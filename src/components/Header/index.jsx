@@ -22,7 +22,7 @@ const settings = ['Perfil', 'Configurações', 'Meus Eventos', 'Minhas compras',
 
 const Header = () => {
   // utilizar login token
-  const [userLogged, setUserLogged] = React.useState(false);
+  const [userLogged] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {

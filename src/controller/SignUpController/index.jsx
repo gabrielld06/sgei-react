@@ -88,10 +88,9 @@ export default function SignUpController() {
             tabValues: index,
         });
     };
-
+    
     return (
         <SignUpView 
-            userValues={userValues}
             handleChangeField={handleChangeField}
             setUserValues={setUserValues}
             values={values} 

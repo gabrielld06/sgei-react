@@ -1,12 +1,39 @@
 .mainContainer {
     display: flex;
-    flex-direction: column;
-    margin: 16px auto;
-    max-width: 1280px;
+    text-align: center;
+    min-height: 100vh;
+    width: 100%;
+    margin: 16px 0;
 }
 
-@media (min-width: 768px) {
-    .mainContainer {
-        flex-direction: row;
+.leftSide {
+    display: flex;
+    text-align: center;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 16px 16px;
+    width: 17%;
+}
+
+.rightSide {
+    min-height: 100vh;
+    margin: 16px 16px;
+    width: 80%;
+}
+
+@media (max-width: 768px) {
+    .leftSide {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        margin: 10px auto;
+        min-height: auto;
+        width: 80%;
+    }
+
+    .rightSide {
+        min-height: 100vh;
+        margin: 16px auto;
+        width: 80%;
     }
 }

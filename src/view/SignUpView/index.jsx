@@ -19,9 +19,9 @@ function a11yProps(index) {
 }
 
 export default function SignUpView(props) {
-    const { userValues, handleChangeField, setUserValues, values, handleClickShowPassword, handleChange, handleChangeIndex, handleSubmit } = props;
+    const { handleChangeField, setUserValues, values, handleClickShowPassword, handleChange, handleChangeIndex, handleSubmit } = props;
     const theme = useTheme();
-
+    
     return (
         <div className='boxStyle'>
             <Box sx={ boxStyle }>
@@ -44,13 +44,13 @@ export default function SignUpView(props) {
                     index={values.tabValues}
                     onChangeIndex={handleChangeIndex}>
                     <TabPanel value={values.tabValues} index={0} dir={theme.direction}>
-                        <SignUpGrid userValues={userValues} setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={0} />
+                        <SignUpGrid setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={0} />
                     </TabPanel>
                     <TabPanel value={values.tabValues} index={1} dir={theme.direction}>
-                        <SignUpGrid userValues={userValues} setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={1} />
+                        <SignUpGrid setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={1} />
                     </TabPanel>
                     <TabPanel value={values.tabValues} index={2} dir={theme.direction}>
-                        <SignUpGrid userValues={userValues} setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={2} />
+                        <SignUpGrid setUserValues={setUserValues} handleChangeField={handleChangeField} values={values} handleClickShowPassword={handleClickShowPassword} userType={2} />
                     </TabPanel>
                 </SwipeableViews>
                 <Button variant="contained" sx={{ m: 2 }} component={Link} to="/signup" onClick={()=>{ handleSubmit() }} >Cadastre-se</Button>

@@ -6,4 +6,11 @@ const getEvents = asyncHandler(async (req, res) => {
     res.json(events);
 });
 
-export default getEvents;
+const getFilterEvents = asyncHandler(async (req, res) => {
+   
+    const {filter} = req.body;
+    const events = await Event.find({});
+    res.json(events.filter(e => e.nomeEvento.includes(filter)));
+});
+
+export default getFilterEvents;
