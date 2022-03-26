@@ -36,7 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"npm run start\" \"npm run nodes\""
+    "dev": "concurrently \"npm run start\" \"npm run nodes\"",
+    "build-server": "concurrently \"npm run build\" \"npm run nodes\""
   },
   "eslintConfig": {
     "extends": [
