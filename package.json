@@ -33,7 +33,9 @@
   "scripts": {
     "start": "react-scripts start",
     "nodes": "node ./server/index.js",
-    "build": "react-scripts build",
+    "build": "npm-run-all --parallel build:**",
+    "build:app": "react-scripts build",
+    "build:functions": "netlify-lambda build functions",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm run start\" \"npm run nodes\"",
@@ -59,7 +61,7 @@
   },
   "proxy": {
     "/.netlify/functions": {
-      "target": "http://localhost:9000",
+      "target": "http://localhost:5000",
       "pathRewrite": {
         "^/\\.netlify/functions": ""
       }
