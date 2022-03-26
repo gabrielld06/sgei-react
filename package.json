@@ -57,5 +57,13 @@
       "last 1 safari version"
     ]
   },
+  "proxy": {
+    "/.netlify/functions": {
+      "target": "http://localhost:9000",
+      "pathRewrite": {
+        "^/\\.netlify/functions": ""
+      }
+    }
+  },
   "type": "module"
 }
