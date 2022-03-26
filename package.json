@@ -34,6 +34,9 @@
     "start": "react-scripts start",
     "nodes": "node ./server/index.js",
     "build": "react-scripts build",
+    "build-net": "npm-run-all --parallel build-net:**",
+    "build-net:app": "react-scripts build",
+    "build-net:functions": "netlify-lambda build functions",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm run start\" \"npm run nodes\"",
@@ -57,5 +60,12 @@
       "last 1 safari version"
     ]
   },
+  "proxy": {
+    "/.netlify/functions": {
+      "target": "http://localhost:5000",
+      "pathRewrite": {
+        "^/\\.netlify/functions": ""
+      }
+    },
   "type": "module"
 }
