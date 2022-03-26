@@ -74,7 +74,7 @@
     "/.netlify/functions": {
       "target": "http://localhost:5000",
       "pathRewrite": {
-        "^/\\.netlify/functions": ""
+        "^/\\/api": ""
       }
     }
   },
