@@ -21,6 +21,7 @@ import './style.css'
 const settings = ['Perfil', 'Configurações', 'Meus Eventos', 'Minhas compras', 'Sair'];
 
 const Header = () => {
+  // utilizar login token
   const [userLogged, setUserLogged] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -47,8 +48,9 @@ const Header = () => {
           </Tooltip>
         </IconButton>
 
-        {/* User profile menubar */
-          (userLogged ?
+        {
+          (!userLogged ?
+            /* Signup / Login option */
             <Box container sx={{ height: '100%', width: '200px' }}>
               <Grid container justifyContent="space-evenly">
                 <IconButton component={Link} to="/signup">
@@ -61,6 +63,7 @@ const Header = () => {
               </Grid>
             </Box>
             :
+            /* User profile menubar */
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings"  className='icon'>
                 <IconButton onClick={handleOpenUserMenu} className='icon'>

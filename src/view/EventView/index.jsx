@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../../components/Header'
 
 export default function EventView() {
   return (
@@ -7,7 +6,6 @@ export default function EventView() {
     // UI goes here
     
     <div>
-      <Header />
       EventView
     </div>
   )
