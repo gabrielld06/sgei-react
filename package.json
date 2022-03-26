@@ -71,7 +71,7 @@
     ]
   },
   "proxy": {
-    "/.netlify/functions": {
+    "/api": {
       "target": "http://localhost:5000",
       "pathRewrite": {
         "^/\\/api": ""
