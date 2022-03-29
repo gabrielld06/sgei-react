@@ -21,10 +21,19 @@ import './style.css'
 const settings = ['Perfil', 'Configurações', 'Meus Eventos', 'Minhas compras', 'Sair'];
 
 const Header = () => {
-  // utilizar login token
-  const [userLogged] = React.useState(false);
+  const [userLogged, setUserLogged] = React.useState();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  React.useEffect(() => {
+    if (localStorage.getItem("userInfos")) {
+      setUserLogged(true);
+    } else {
+      setUserLogged(false);
+    }
+    console.log(userLogged)
+    console.log(localStorage.getItem("userInfos"));
+  }, [userLogged])
+  
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -65,9 +74,9 @@ const Header = () => {
             :
             /* User profile menubar */
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings"  className='icon'>
+              <Tooltip title="Open settings" className='icon'>
                 <IconButton onClick={handleOpenUserMenu} className='icon'>
-                  <AccountCircleIcon sx={{ color: "white" }} style={{ height: '50px', width: '50px'}} />
+                  <AccountCircleIcon sx={{ color: "white" }} style={{ height: '50px', width: '50px' }} />
                 </IconButton>
               </Tooltip>
               <Menu

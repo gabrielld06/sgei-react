@@ -1,7 +1,7 @@
 // const { ErrorRounded } = require('@mui/icons-material');
 import asyncHandler from 'express-async-handler';
 import User from '../../model/UserMoldels/userMoldels.js'
-
+import generateToken from '../../../server/utils/GenerateToken/index.js'
 const registerUser = asyncHandler(async (req, res) => {
     const { username, userType, password, phone, address, city, email, cpf_cnpj } = req.body;
 
@@ -44,7 +44,8 @@ const registerUser = asyncHandler(async (req, res) => {
             address: newUser.address,
             city: newUser.city,
             email: newUser.email,
-            cpf_cnpj: newUser.cpf_cnpj
+            cpf_cnpj: newUser.cpf_cnpj,
+            token: generateToken(newUser._id)
         });
     } else {
         res.status(400);
@@ -68,7 +69,7 @@ const authUser = asyncHandler(async (req, res) => {
     const account = await User.findOne({ email });
 
     if (account && (await account.matchPassword(password))) {
-        res.json({
+        res.status(201).json({
             _id: account._id,
             username: account.username,
             userType: account.userType,
@@ -77,7 +78,7 @@ const authUser = asyncHandler(async (req, res) => {
             city: account.city,
             email: account.email,
             cpf_cnpj: account.cpf_cnpj,
-            //token: generateToken(account._id),
+            token: generateToken(account._id),
         });
     } else {
         res.status(401);

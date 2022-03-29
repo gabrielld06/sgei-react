@@ -1,11 +1,20 @@
 import React from 'react'
 import SignUpView from '../../view/SignUpView'
 import axios from "axios";
-
-// TODO: tratar senhas diferentes; session token
+import { useNavigate } from 'react-router-dom';
+// TODO: navega
 
 export default function SignUpController() {
-    
+    const [userInfos, setUserInfos] = React.useState();
+    const navigate = useNavigate();
+    React.useEffect(() => {
+        setUserInfos(localStorage.getItem("userInfos"));
+
+    }, [userInfos])
+    if (userInfos) {
+        console.log(userInfos);
+        navigate("/")
+    }
     const [userValues, setUserValues] = React.useState({
         username: "",
         accountType: 0,
@@ -18,25 +27,22 @@ export default function SignUpController() {
         passVer : "",
     });
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (showAlert) => {
         const { username, accountType, password, phone, address, city, email, cpf_cnpj, passVer } = userValues;
         const type = ['espectador', 'criadorDeEvento', 'apresentador'];
         const userType = type[accountType];
-
         if(passVer !== password) {
-            // do something
             console.log("senha diferente");
         } else {
-            try {
-                const { data } = await axios.post(
+                await axios.post(
                 "http://127.0.0.1:5000/api/users",
                 { username, userType, password, phone, address, city, email, cpf_cnpj }
-                );
-                // criar session token
-                console.log(data);            
-            } catch {
-                console.log('deu merda');
-            }
+                ).then(response => {
+                    showAlert(response.status);
+                    //navigate("/login");
+                }, err => {
+                    showAlert(err.response.status)
+                });
         }
     };
 
