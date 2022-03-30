@@ -11,6 +11,8 @@ export default function HomeController() {
       { filter }).then((response) => {
         setEventList(response.data);
         console.log(eventList);
+      }, (response) => {
+        console.log(response);
       });
   }
 

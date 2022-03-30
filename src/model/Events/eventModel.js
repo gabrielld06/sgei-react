@@ -6,7 +6,7 @@ const eventSchema = mongoose.Schema({
         required: true,
     },
     creator: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: 'string',
         required: true,
     },
     description: {
@@ -14,15 +14,15 @@ const eventSchema = mongoose.Schema({
         required: true,
     },
     participants: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: 'string',
         required: true,
     },
     ticketsAvailable: {
-        type: 'number',
+        type: 'string',
         required: true,
     },
     ticketPrice: {
-        type: 'number',
+        type: 'string',
         required: true,
     },
     location: {
@@ -30,11 +30,11 @@ const eventSchema = mongoose.Schema({
         required: true,
     },
     startDate: {
-        type: 'Date',
+        type: 'string',
         required: true,
     },
     finishDate: {
-        type: 'Date',
+        type: 'string',
         required: true,
     }
 },

@@ -8,7 +8,7 @@ export default function NewEventController() {
         name: "",
         creator: "",
         description: "",
-        participants: [],
+        participants: "1",
         ticketsAvailable: "",
         ticketPrice: "",
         location: "",
@@ -17,11 +17,19 @@ export default function NewEventController() {
     });
 
     const handleSubmit = async (showAlert) => {
-        // handleChangeFieldValue(localStorage.getItem("userInfos"));
-        const { name, creator, description, participants, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventValues;
+        const id = JSON.parse(localStorage.getItem("userInfos"))._id;
+        handleChangeFieldValue(id.toString(), "creator");
+        var { name, creator, description, participants, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventValues;
+        // ticketsAvailable = parseInt(ticketsAvailable);
+        // ticketPrice = parseFloat(ticketPrice);
+        startDate = startDate.toString();
+        finishDate = finishDate.toString();
+        participants = '1';
+        const thumb = '';
+        console.log(eventValues);
         await axios.post(
-            "http://127.0.0.1:5000/api/events",
-            { name, creator, description, participants, ticketsAvailable, ticketPrice, location, startDate, finishDate }
+            "http://127.0.0.1:5000/api/events/newEvent",
+            { thumb, name, creator, description, participants, ticketsAvailable, ticketPrice, location, startDate, finishDate }
         ).then(response => {
             showAlert(response.status);
             //navigate("/login");
@@ -37,7 +45,6 @@ export default function NewEventController() {
             ...evtValues,
             ...updatedValue
         }));
-        console.log(eventValues);
     }
 
     const handleChangeFieldValue = (newValue, field) => {
@@ -47,7 +54,6 @@ export default function NewEventController() {
             ...evtValues,
             ...updatedValue
         }));
-        console.log(eventValues);
     }
 
     return (

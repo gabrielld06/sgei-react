@@ -41,7 +41,7 @@ export default function HomeView(props) {
             alignItems="center">
             {eventList.map((item) => (
               <Card sx={{ minWidth: 345 }}>
-                <Link to={`/${item.nomeEvento}`}>
+                <Link to={`/${item.name}`}>
                   <CardMedia
                     component="img"
                     alt="evento"
@@ -51,15 +51,15 @@ export default function HomeView(props) {
                 </Link>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {item.nomeEvento}
+                    {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.descricao}
+                    {item.description}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button component={Link} to={`/${item.nomeEvento}`} size="small">Ver evento</Button>
-                  <Button component={Link} to={`/${item.nomeEvento}/sign_event`} size="small">Inscrever-se</Button>
+                  <Button component={Link} to={`/${item.name}`} size="small">Ver evento</Button>
+                  <Button component={Link} to={`/${item.name}/sign_event`} size="small">Inscrever-se</Button>
                 </CardActions>
               </Card>
             ))}

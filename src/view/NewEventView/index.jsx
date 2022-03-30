@@ -2,7 +2,6 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import './styles.css';
-import { Link } from 'react-router-dom';
 import MuiAlert from '@mui/material/Alert';
 import Header from '../../components/Header'
 import Divider from '@mui/material/Divider';
@@ -74,7 +73,7 @@ export default function NewEventView(props) {
                                     renderInput={(params) => <TextField sx={userFieldStyle} {...params} />}
                                 />
                             </LocalizationProvider>
-                            <Button variant="contained" sx={{ m: 2 }} component={Link} to="/signup" onClick={() => { handleSubmit(handleShowAlert); }} >Adicionar produto</Button>
+                            <Button variant="contained" sx={{ m: 2 }} onClick={() => { handleSubmit(handleShowAlert); }} >Adicionar evento</Button>
                         </Grid>
                     </Grid>
                 </Box>

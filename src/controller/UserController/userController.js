@@ -22,7 +22,6 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('CPF já cadastrado.');
     }
 
-
     const newUser = await User.create({
         username,
         userType,
