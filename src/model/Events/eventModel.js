@@ -1,39 +1,39 @@
 import mongoose from 'mongoose'
 
 const eventSchema = mongoose.Schema({
-    nomeEvento: {
+    name: {
         type: 'string',
         required: true,
     },
-    criadorEvento: {
+    creator: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
-    descricao: {
+    description: {
         type: 'string',
         required: true,
     },
-    participantes: {
+    participants: {
         type: [mongoose.Schema.Types.ObjectId],
         required: true,
     },
-    vagas: {
+    ticketsAvailable: {
         type: 'number',
         required: true,
     },
-    precoIngresso: {
+    ticketPrice: {
         type: 'number',
         required: true,
     },
-    local: {
+    location: {
         type: 'string',
         required: true,
     },
-    dataInicio: {
+    startDate: {
         type: 'Date',
         required: true,
     },
-    dataFim: {
+    finishDate: {
         type: 'Date',
         required: true,
     }

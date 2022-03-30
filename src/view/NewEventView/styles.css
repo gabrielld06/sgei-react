@@ -1,0 +1,11 @@
+body,html {
+    margin: 0;
+    padding: 0;
+}
+.boxDivStyle{
+    display: flex;
+    margin-top: 5%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
