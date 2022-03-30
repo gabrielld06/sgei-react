@@ -27,7 +27,7 @@ export default function LoginController() {
     };
 
     const [userValues, setUserValues] = React.useState({
-        email: "",
+        username: "",
         password: "",
     });
 
@@ -43,10 +43,10 @@ export default function LoginController() {
     }
 
     const handleSubmit = async (handleShowAlert) => {
-        const { email, password } = userValues;
+        const { username, password } = userValues;
         await axios.post(
             "http://127.0.0.1:5000/api/users/login",
-            { email, password }
+            { username, password }
         ).then(response => {
             localStorage.setItem("userInfos", JSON.stringify(response.data));
             handleShowAlert(response.status);

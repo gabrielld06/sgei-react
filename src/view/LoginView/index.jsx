@@ -45,7 +45,7 @@ export default function LoginView(props) {
                     <img src={Supimpa} style={{ paddingTop: 10 }} alt="Logo"></img>
                     <Stack direction="column"
                         alignItems="center">
-                        <TextField id="UserField" label="Usuário" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "email") }} />
+                        <TextField id="UserField" label="Usuário" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "username") }} />
                         <TextField id="PasswordField" label="Senha" variant="outlined" type={values.showPassword ? "text" : "password"} sx={userFieldStyle} InputProps={{
                             endAdornment: (
                                 <InputAdornment position="start">

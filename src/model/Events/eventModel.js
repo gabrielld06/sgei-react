@@ -14,15 +14,19 @@ const eventSchema = mongoose.Schema({
         required: true,
     },
     participants: {
-        type: 'string',
+        type: [],
+        required: true,
+    },
+    presentations: {
+        type: [],
         required: true,
     },
     ticketsAvailable: {
-        type: 'string',
+        type: 'number',
         required: true,
     },
     ticketPrice: {
-        type: 'string',
+        type: 'number',
         required: true,
     },
     location: {
@@ -30,11 +34,11 @@ const eventSchema = mongoose.Schema({
         required: true,
     },
     startDate: {
-        type: 'string',
+        type: 'date',
         required: true,
     },
     finishDate: {
-        type: 'string',
+        type: 'date',
         required: true,
     }
 },
