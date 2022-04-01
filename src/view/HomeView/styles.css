@@ -11,7 +11,8 @@
     text-align: center;
     min-height: 100vh;
     flex-direction: column;
-    margin: 16px 16px;
+    margin: 0px 0px;
+    padding: 0px 16px;
     width: 17%;
 }
 
@@ -23,16 +24,12 @@
 
 @media (max-width: 768px) {
     .leftSide {
-        display: flex;
-        text-align: center;
-        flex-direction: column;
         margin: 10px auto;
         min-height: auto;
         width: 80%;
     }
 
     .rightSide {
-        min-height: 100vh;
         margin: 16px auto;
         width: 80%;
     }

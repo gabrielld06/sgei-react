@@ -1,7 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import Event from '../../model/Events/eventModel.js'
+import mongoose from 'mongoose'
 
-const getFilterEvents = asyncHandler(async (req, res) => {
+const getEvents = asyncHandler(async (req, res) => {
     const { filter } = req.body;
     const events = await Event.find({});
     res.json(events.filter(e => e.name.includes(filter)));
@@ -11,15 +12,15 @@ const newEvent = asyncHandler(async (req, res) => {
     const { thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = req.body;
     const newEvent = await Event.create({
         thumb,
-        name, 
+        name,
         creator,
-        description, 
+        description,
         participants,
         presentations,
-        ticketsAvailable, 
-        ticketPrice, 
-        location, 
-        startDate, 
+        ticketsAvailable,
+        ticketPrice,
+        location,
+        startDate,
         finishDate
     });
     if (newEvent) {
@@ -43,4 +44,25 @@ const newEvent = asyncHandler(async (req, res) => {
     }
 });
 
-export { getFilterEvents, newEvent };
+const updateEvent = asyncHandler(async (req, res) => {
+    const { event, field, update } = req.body;
+
+    const eventUpdate = await Event.findOne({ '_id': event });
+    console.log(eventUpdate);
+    console.log(field);
+    if (field === 'presentations') {
+        eventUpdate['presentations'].push(update);
+    } else {
+        eventUpdate[field] = update;
+    }
+
+    await eventUpdate.save().then(() => {
+        res.status(201).json(eventUpdate);
+    }, () => {
+        res.status(400);
+        throw new Error('Algo deu errado :(');
+    });
+
+});
+
+export { getEvents, newEvent, updateEvent };

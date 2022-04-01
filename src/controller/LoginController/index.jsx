@@ -62,7 +62,6 @@ export default function LoginController() {
             handleClickShowPassword={handleClickShowPassword}
             handleChangeField={handleChangeField}
             handleSubmit={handleSubmit}
-            userInfos={userInfos}
         />
     )
 }

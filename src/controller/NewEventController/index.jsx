@@ -6,6 +6,17 @@ import axios from "axios"
 export default function NewEventController() {
     // name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate
     const [userInfos, setUserInfos] = React.useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setUserInfos(localStorage.getItem("userInfos"));
+
+    }, [userInfos])
+
+    if (!userInfos || JSON.parse(userInfos).userType !== 'criadorDeEvento') {
+        navigate("/")
+    }
+
     const [eventValues, setEventValues] = useState({
         name: "",
         creator: "",
@@ -18,7 +29,6 @@ export default function NewEventController() {
         startDate: new Date(),
         finishDate: new Date()
     });
-    const navigate = useNavigate();
 
     const handleChangeField = (event, field) => {
         let updatedValue = {};
@@ -36,15 +46,6 @@ export default function NewEventController() {
             ...evtValues,
             ...updatedValue
         }));
-    }
-
-    useEffect(() => {
-        setUserInfos(localStorage.getItem("userInfos"));
-
-    }, [userInfos])
-
-    if (!userInfos || JSON.parse(userInfos).userType !== 'criadorDeEvento') {
-        navigate("/")
     }
 
     const handleSubmit = async (showAlert) => {

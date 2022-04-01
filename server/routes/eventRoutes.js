@@ -1,11 +1,10 @@
 import express from "express";
-import {getFilterEvents, newEvent} from "../../src/controller/EventController/eventController.js";
+import {getEvents, newEvent, updateEvent} from "../../src/controller/EventController/eventController.js";
 
 const router = express.Router();
 
-// router.route('/').get(getEvents);
-router.route('/').post(getFilterEvents);
+router.route('/').post(getEvents);
 router.route('/newEvent').post(newEvent);
-// router.post('/api/users', registerUser);
+router.route('/updateEvent').post(updateEvent);
 
 export default router;

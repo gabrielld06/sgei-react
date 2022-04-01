@@ -21,7 +21,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function LoginView(props) {
-    const { values, handleClickShowPassword, handleChangeField, handleSubmit, userInfos } = props;
+    const { values, handleClickShowPassword, handleChangeField, handleSubmit } = props;
     const [showAlert, setShowAlert] = React.useState(false);
     const [loginStatus, setLoginStatus] = React.useState();
 

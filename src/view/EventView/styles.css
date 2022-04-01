@@ -1,0 +1,51 @@
+.mainContainer {
+    display: flex;
+    text-align: center;
+    min-height: 100vh;
+    width: 100%;
+    margin: 16px 0;
+}
+
+.eventLeftSide {
+    display: flex;
+    text-align: center;
+    min-height: 100vh;
+    flex-direction: column;
+    padding: 0px;
+    margin: 16px 0px;
+    width: 25%;
+}
+
+.eventRightSide {
+    min-height: 100vh;
+    margin: 16px 16px;
+}
+
+.eventInfo {
+    margin: 0px;
+    
+    font-family: "Lucida Sans Unicode", "Courier New", sans-serif;
+}
+
+.eventCardInfoBreak {
+    margin-bottom: 16px;
+}
+
+.eventCardInfo {
+    margin: 6px;
+    padding: 6px;
+}
+
+@media (max-width: 768px) {
+    .eventLeftSide {
+        margin: 10px auto;
+        min-height: auto;
+        width: 80%;
+    }
+
+    .eventRightSide {
+        min-height: 100vh;
+        margin: 16px auto;
+        width: 80%;
+    }
+}

@@ -30,8 +30,6 @@ const Header = () => {
     } else {
       setUserLogged(false);
     }
-    console.log(userLogged)
-    console.log(localStorage.getItem("userInfos"));
   }, [userLogged])
   
   const handleOpenUserMenu = (event) => {

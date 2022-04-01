@@ -10,7 +10,6 @@ export default function HomeController() {
     axios.post('http://127.0.0.1:5000/api/events',
       { filter }).then((response) => {
         setEventList(response.data);
-        console.log(eventList);
       }, (response) => {
         console.log(response);
       });
@@ -25,7 +24,12 @@ export default function HomeController() {
   }
 
   React.useEffect(() => {
-    getEvents();
+    axios.post('http://127.0.0.1:5000/api/events',
+      { filter }).then((response) => {
+        setEventList(response.data);
+      }, (response) => {
+        console.log(response);
+      });
   }, []);
 
   return (
