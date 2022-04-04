@@ -11,6 +11,7 @@ import LoginController from './controller/LoginController'
 import SignUpController from './controller/SignUpController'
 import NewEventController from './controller/NewEventController'
 import NewPresentationController from './controller/NewPresentationController'
+import BuyTicketController from './controller/BuyTicketController'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<SignUpController />} />
         <Route path="/newEvent" element={<NewEventController />} />
         <Route path="/:eventName" element={<EventController />} />
+        <Route path="/:eventName/sign_event" element={<BuyTicketController />} />
         <Route path="/:eventName/newPresentation" element={<NewPresentationController />} />
         <Route path="/:eventName/:presentationName" element={<PresentationController />}
         />

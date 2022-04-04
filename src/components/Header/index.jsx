@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import SupimpaLogo from '../../assets/supimpa.png'
 import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from "react-router-dom";
 
 import './style.css'
 
@@ -23,7 +24,7 @@ const settings = ['Perfil', 'Configurações', 'Meus Eventos', 'Minhas compras',
 const Header = () => {
   const [userLogged, setUserLogged] = React.useState();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const navigate = useNavigate();
   React.useEffect(() => {
     if (localStorage.getItem("userInfos")) {
       setUserLogged(true);
@@ -36,6 +37,13 @@ const Header = () => {
     setAnchorElUser(event.currentTarget);
   };
 
+  const handleMenuClick = (option) => {
+    if (option === "Sair"){
+      localStorage.removeItem("userInfos");
+      navigate("/login")
+    }
+    setAnchorElUser(null);
+  }
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -94,7 +102,7 @@ const Header = () => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem key={setting} onClick={() => {handleMenuClick(setting)}}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
