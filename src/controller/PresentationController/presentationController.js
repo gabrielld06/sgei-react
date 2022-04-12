@@ -2,13 +2,16 @@ import asyncHandler from 'express-async-handler';
 import Presentation from '../../model/Presentations/presentationModel.js'
 
 const getPresentations = asyncHandler(async (req, res) => {
-    const { filterId, filterName } = req.body;
+    const { filterId, filterName, filterEvent } = req.body;
     var presentations = await Presentation.find({});
-    if(filterId || filterId !== '') {
-        presentations = presentations.filter(e => e.name.includes(filterId));
+    if(filterId && filterId !== '') {
+        presentations = presentations.filter(e => e._id.includes(filterId));
     }
-    if(filterName || filterName !== '') {
+    if(filterName && filterName !== '') {
         presentations = presentations.filter(e => e.name.includes(filterName));
+    }
+    if(filterEvent && filterEvent !== '') {
+        presentations = presentations.filter(e => e.event === filterEvent);
     }
     res.json(presentations);
 });

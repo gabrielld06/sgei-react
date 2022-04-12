@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler';
 import Event from '../../model/Events/eventModel.js'
-import mongoose from 'mongoose'
 
 const getEvents = asyncHandler(async (req, res) => {
     const { filter } = req.body;
@@ -9,14 +8,13 @@ const getEvents = asyncHandler(async (req, res) => {
 });
 
 const newEvent = asyncHandler(async (req, res) => {
-    const { thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = req.body;
+    const { thumb, name, creator, description, participants, ticketsAvailable, ticketPrice, location, startDate, finishDate } = req.body;
     const newEvent = await Event.create({
         thumb,
         name,
         creator,
         description,
         participants,
-        presentations,
         ticketsAvailable,
         ticketPrice,
         location,
@@ -31,7 +29,6 @@ const newEvent = asyncHandler(async (req, res) => {
             creator: newEvent.creator,
             description: newEvent.description,
             participants: newEvent.participants,
-            presentations: newEvent.presentations,
             ticketsAvailable: newEvent.ticketsAvailable,
             ticketPrice: newEvent.ticketPrice,
             location: newEvent.location,

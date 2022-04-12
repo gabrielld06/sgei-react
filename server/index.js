@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
-app.use("/api/presentation", presentationRoutes);
+app.use("/api/presentations", presentationRoutes);
 
 app.listen(5000, ()=>{
     console.log("server ligado na porta 5000");

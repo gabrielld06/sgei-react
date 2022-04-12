@@ -87,17 +87,17 @@ export default function NewPresentationController() {
         const thumb = '';
         try {
             const presentationData = await axios.post(
-                "http://127.0.0.1:5000/api/presentation/newPresentation",
+                "http://127.0.0.1:5000/api/presentations/newPresentation",
                 { thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event }
             );
             
-            const update = presentationData.data._id;
-            const field = 'presentations';
+            // const update = presentationData.data._id;
+            // const field = 'presentations';
 
-            await axios.post(
-                "http://127.0.0.1:5000/api/events/updateEvent",
-                { event, field, update }
-            );
+            // await axios.post(
+            //     "http://127.0.0.1:5000/api/events/updateEvent",
+            //     { event, field, update }
+            // );
 
             showAlert(201);
 
