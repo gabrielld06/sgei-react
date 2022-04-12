@@ -4,10 +4,35 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/Header'
 import SupimpaLogo from '../../assets/supimpa.png'
 import './styles.css'
+import ShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function EventView(props) {
     const matches = useMediaQuery('(min-width:768px)');
-    const { name, description, totalPresentations, location, startDate, finishDate, ticketPrice, ticketsAvailable, handleTicketCount, ticketCount } = props;
+    const { name, description, totalPresentations, location, startDate, finishDate, ticketPrice, ticketsAvailable, handleTicketCount, handleBuyTicketClick, ticketCount } = props;
+
+    const [showAlert, setShowAlert] = React.useState(false);
+    const [alertMessage, setAlertMessage] = React.useState("");
+    const [eventStatus, setEventStatus] = React.useState(false);
+
+    const handleShowAlert = (response, message) => {
+        setEventStatus(response);
+        setAlertMessage(message);
+        setShowAlert(true);
+    };
+
+    const handleAlertClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setShowAlert(false);
+    };
 
     if (!name) {
         return (
@@ -60,13 +85,12 @@ export default function EventView(props) {
                 {matches ? <Divider orientation="vertical" flexItem /> : <Divider orientation="horizontal" flexItem />}
                 <Box className='eventRightSide'>
                     <Grid container
-                        direction={matches ? 'row' : 'column'}
+                        direction={matches ? 'column' : 'column'}
                         width='100%'
-                        justifyContent="space-evenly"
                         rowGap={2}
                         columnGap={2}
                         alignItems="center">
-                        <h3 className='eventInfo'>Comprar ingresso</h3>
+                        <Typography variant="h4" gutterBottom component="div">Comprar ingressos</Typography>
                         <TextField
                             id="ticket-count"
                             label="Quantidade de ingressos"
@@ -75,13 +99,20 @@ export default function EventView(props) {
                             value={ticketCount}
                             onChange={(e) => handleTicketCount(e.target.value)}
                             InputLabelProps={{
-                                shrink: true,      
+                                shrink: true,
                             }}
                         />
-                        <h3 className='eventInfo'>Total: R${ticketCount * ticketPrice}</h3>
+                        <Typography variant="h6" gutterBottom component="div">Total: R${ticketCount * ticketPrice}</Typography>
+                        <Button variant="contained" onClick={() => { handleBuyTicketClick(handleShowAlert);}} endIcon={<ShoppingCartIcon />}>Comprar ingresso</Button>
                     </Grid>
                 </Box>
+                <Snackbar open={showAlert} onClose={handleAlertClose} autoHideDuration={3000}>
+                    {eventStatus === 201
+                        ? <Alert severity="success">{alertMessage}</Alert>
+                        : <Alert severity="error">{alertMessage}</Alert>}
+                </Snackbar>
             </ Grid>
+
         </div>
     )
 }
