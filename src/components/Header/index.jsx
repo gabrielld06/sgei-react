@@ -16,6 +16,7 @@ import SupimpaLogo from '../../assets/supimpa.png'
 import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
+import { isUserLoggedIn } from '../../controller/userInfosController';
 
 import './style.css'
 
@@ -26,11 +27,7 @@ const Header = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
   React.useEffect(() => {
-    if (localStorage.getItem("userInfos")) {
-      setUserLogged(true);
-    } else {
-      setUserLogged(false);
-    }
+    setUserLogged(isUserLoggedIn());
   }, [userLogged])
   
   const handleOpenUserMenu = (event) => {
@@ -41,6 +38,9 @@ const Header = () => {
     if (option === "Sair"){
       localStorage.removeItem("userInfos");
       navigate("/login")
+    }
+    if (option == "Meus Eventos"){
+      navigate("/myEvents")
     }
     setAnchorElUser(null);
   }

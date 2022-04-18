@@ -7,6 +7,13 @@ const getEvents = asyncHandler(async (req, res) => {
     res.json(events.filter(e => e.name.includes(filter)));
 });
 
+const getUserEvents = asyncHandler(async (req, res) => {
+    const { userId, filter } = req.body;
+    const userEvents = await Event.find({creator: userId});
+    console.log(userEvents);
+    res.json(userEvents.filter(e => e.name.includes(filter)));
+})
+
 const newEvent = asyncHandler(async (req, res) => {
     const { thumb, name, creator, description, participants, ticketsAvailable, ticketPrice, location, startDate, finishDate } = req.body;
     const newEvent = await Event.create({
@@ -62,4 +69,4 @@ const updateEvent = asyncHandler(async (req, res) => {
 
 });
 
-export { getEvents, newEvent, updateEvent };
+export { getEvents, getUserEvents, newEvent, updateEvent };
