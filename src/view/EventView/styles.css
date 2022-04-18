@@ -23,8 +23,12 @@
 
 .eventInfo {
     margin: 0px;
-    
     font-family: "Lucida Sans Unicode", "Courier New", sans-serif;
+}
+
+.searchField {
+    margin-bottom: 5px;
+    text-align: left;
 }
 
 .eventCardInfoBreak {
@@ -34,6 +38,12 @@
 .eventCardInfo {
     margin: 6px;
     padding: 6px;
+}
+
+.createPresentation {
+    position: fixed;
+    bottom: 17px;
+    right: 17px;
 }
 
 @media (max-width: 768px) {
@@ -47,5 +57,9 @@
         min-height: 100vh;
         margin: 16px auto;
         width: 80%;
+    }
+
+    .searchField {
+        text-align: center;
     }
 }

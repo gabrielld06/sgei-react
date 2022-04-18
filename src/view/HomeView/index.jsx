@@ -40,7 +40,7 @@ export default function HomeView(props) {
             columnGap={2}
             alignItems="center">
             {eventList.map((item) => (
-              <Card sx={{ minWidth: 345 }}>
+              <Card key={`${item.name}`} sx={{ minWidth: 345 }}>
                 <Link to={`/${item.name}`}>
                   <CardMedia
                     component="img"

@@ -1,6 +1,5 @@
 import React from 'react'
-import { useMediaQuery, Card, CardActions, CardContent, CardMedia, Button, Typography, Grid, Divider, Box, TextField } from '@mui/material'
-import { Link } from 'react-router-dom';
+import { useMediaQuery, CardMedia, Button, Typography, Grid, Divider, Box, TextField } from '@mui/material'
 import Header from '../../components/Header'
 import SupimpaLogo from '../../assets/supimpa.png'
 import './styles.css'

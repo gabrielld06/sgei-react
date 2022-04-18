@@ -5,8 +5,22 @@ import EventView from '../../view/EventView'
 
 export default function EventController() {
   const [eventInfo, setEventInfo] = useState();
+  const [filter, setFilter] = useState();
   const [presentationList, setPresentationList] = useState();
+  const [presentationShowList, setPresentationShowList] = useState();
   const [loading, setLoading] = useState(true);
+
+  const filterPresentations = () => {
+    setPresentationShowList(presentationList.filter(p => p.name.includes(filter)));
+  }
+
+  const handleChangeField = (event) => {
+    setFilter(event.target.value);
+  }
+
+  const handleSearch = (event) => {
+    filterPresentations();
+  }
 
   const match = useMatch('/:event');
   useEffect(() => {
@@ -24,6 +38,7 @@ export default function EventController() {
                 const presentationData = response.data;
   
                 setPresentationList(presentationData);
+                setPresentationShowList(presentationData);
               }, (response) => {
                 console.log(response);
               });
@@ -48,17 +63,12 @@ export default function EventController() {
     )
   }
 
-  const { name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable } = eventInfo;
   return (
     <EventView
-      name={name}
-      description={description}
-      presentations={presentationList}
-      location={location}
-      startDate={startDate}
-      finishDate={finishDate}
-      ticketPrice={ticketPrice}
-      ticketsAvailable={ticketsAvailable}
+      event={eventInfo}
+      presentations={presentationShowList}
+      handleChangeField={handleChangeField}
+      handleSearch={handleSearch}
     />
   )
 }
