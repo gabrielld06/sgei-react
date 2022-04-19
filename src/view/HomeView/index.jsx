@@ -13,7 +13,7 @@ export default function HomeView(props) {
   return (
     <div>
       <Header></Header>
-      <Grid direction={matches ? 'row' : 'column'} className='mainContainer'>
+      <Grid container direction={matches ? 'row' : 'column'} sx={{"flexWrap":"nowrap"}} className='mainContainer'>
         <Box className='leftSide'>
           <TextField
             id="searchField"

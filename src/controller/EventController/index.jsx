@@ -21,8 +21,9 @@ export default function EventController() {
   const handleSearch = (event) => {
     filterPresentations();
   }
-
+  
   const match = useMatch('/:event');
+
   useEffect(() => {
     async function fetchData() {
       const filter = match.params.event;
@@ -51,21 +52,10 @@ export default function EventController() {
     fetchData();
   }, [])
 
-  if (loading) {
-    return (
-      <h1>Loading</h1>
-    )
-  }
-
-  if (!eventInfo) {
-    return (
-      <EventView />
-    )
-  }
-
   return (
     <EventView
       event={eventInfo}
+      loading={loading}
       presentations={presentationShowList}
       handleChangeField={handleChangeField}
       handleSearch={handleSearch}

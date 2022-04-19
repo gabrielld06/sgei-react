@@ -36,6 +36,9 @@ const userSchema = mongoose.Schema({
         type: 'string',
         required: true,
         unique: true,
+    },
+    tickets: {
+        type: 'array',
     }
 },
     {

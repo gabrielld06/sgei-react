@@ -4,6 +4,7 @@
     min-height: 100vh;
     width: 100%;
     margin: 16px 0;
+    flex-wrap: nowrap;
 }
 
 .eventLeftSide {
@@ -18,6 +19,7 @@
 
 .eventRightSide {
     min-height: 100vh;
+    width: 80%;
     margin: 16px 16px;
 }
 
@@ -27,8 +29,10 @@
 }
 
 .searchField {
-    margin-bottom: 5px;
-    text-align: left;
+    margin-bottom: 16px;
+    /* text-align: center; */
+    align-items: center;
+    width: 50%;
 }
 
 .eventCardInfoBreak {

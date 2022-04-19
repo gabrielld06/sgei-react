@@ -10,15 +10,23 @@ import './styles.css'
 
 export default function EventView(props) {
   const matches = useMediaQuery('(min-width:768px)');
-  const { event, presentations, handleChangeField, handleSearch } = props;
-  const { name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable } = event;
+  const { event, loading, presentations, handleChangeField, handleSearch } = props;
   const [userInfo, setUserInfo] = React.useState();
   // const navigate = useNavigate();
   React.useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfos")));
   }, []);
 
-  if (!name) {
+  if (loading) {
+    return (
+      <div>
+        <Header />
+        <h1>Loading</h1>
+      </div>
+    )
+  }
+
+  if (!event) {
     return (
       <div>
         <Header />
@@ -26,12 +34,14 @@ export default function EventView(props) {
       </div>
     )
   }
+  const { name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable } = event;
+
   const sDate = new Date(startDate);
   const fDate = new Date(finishDate);
   return (
     <div>
       <Header />
-      <Grid container direction={matches ? 'row' : 'column'} className='mainContainer'>
+      <Grid container direction={matches ? 'row' : 'column'} sx={{ "flexWrap": "nowrap" }} className='mainContainer'>
         <Box className='eventLeftSide'>
           <CardMedia
             component="img"
@@ -67,23 +77,21 @@ export default function EventView(props) {
         </Box>
         {matches ? <Divider orientation="vertical" flexItem /> : <Divider orientation="horizontal" flexItem />}
         <Box className='eventRightSide'>
-          {/* <h3 className='palestraTitle'>Palestras</h3> */}
-          <div className='searchField'>
-            <TextField
-              id="searchField"
-              label="Busca"
-              onChange={(e) => { handleChangeField(e) }}
-              onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <SearchIcon onClick={handleSearch} />
-                  </InputAdornment>
-                ),
-              }}
-              variant="standard"
-            />
-          </div>
+          <TextField
+            id="searchField"
+            label="Busca"
+            sx={{ "width": "50%", "marginBottom": "16px" }}
+            onChange={(e) => { handleChangeField(e) }}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon onClick={handleSearch} />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+          />
           <Grid container
             direction={matches ? 'row' : 'column'}
             width='100%'
@@ -116,15 +124,15 @@ export default function EventView(props) {
             ))}
           </Grid>
         </Box>
-      {(userInfo && userInfo.userType==="apresentador") &&
-        <div className="createPresentation" >
-          <Button  component={Link} to={`newPresentation`}>
-            <Fab aria-label="Criar apresentação">
+        {(userInfo && userInfo.userType === "apresentador") &&
+          <div className="createPresentation" >
+            <Button component={Link} to={`newPresentation`}>
+              <Fab aria-label="Criar apresentação">
                 <AddIcon />
-            </Fab>
-          </Button>
-        </div>
-      }
+              </Fab>
+            </Button>
+          </div>
+        }
       </ Grid>
     </div>
   )

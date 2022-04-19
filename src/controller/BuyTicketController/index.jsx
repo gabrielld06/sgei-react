@@ -63,12 +63,20 @@ export default function EventController() {
     const event = eventInfo._id;
     const field = "ticketsAvailable";
     const update = ticketsAvailable - ticketCount;
-    await axios.post('http://127.0.0.1:5000/api/events/updateEvent',
-      { event, field, update }).then(() => {
-        showAlert(201, `Sucesso!\nVocê comprou ${ticketCount} ingressos no valor de R$${ticketCount * ticketPrice}`); // Resposta 200 = Sucesso (retorna até )
+    await axios.post('http://127.0.0.1:5000/api/tickets',
+      { event, ticketCount }).then(async (response) => {
+        const data = response.data;
+        // console.log(data);
+        await axios.post('http://127.0.0.1:5000/api/events/updateEvent',
+          { event, field, update }).then(() => {
+            showAlert(201, `Sucesso!\nVocê comprou ${ticketCount} ingressos no valor de R$${ticketCount * ticketPrice}`); // Resposta 200 = Sucesso (retorna até )
+          }, (response) => {
+            showAlert(0, "Algo deu errado :(");
+          });
       }, (response) => {
-        console.log(response);
+        showAlert(0, "Algo deu errado :(");
       });
+
   }
   // O textfield ta aceitando caracteres não-numéricos, tem que arrumar pra aceitar só numero. Mas o handle não é chamado pelo onChange quando o usuário coloca um valor que é string
   // por causa do props type='numeric' que faz as setinhas aparecerem do lado do texto
