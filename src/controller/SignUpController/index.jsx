@@ -2,13 +2,14 @@ import React from 'react'
 import SignUpView from '../../view/SignUpView'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { getUserInfos } from '../userInfosController';
 // TODO: navega
 
 export default function SignUpController() {
     const [userInfos, setUserInfos] = React.useState();
     const navigate = useNavigate();
     React.useEffect(() => {
-        setUserInfos(localStorage.getItem("userInfos"));
+        setUserInfos(getUserInfos());
 
     }, [userInfos])
     if (userInfos) {

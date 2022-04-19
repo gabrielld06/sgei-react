@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
-import NewEventView from "../../view/NewEventView"
-import { getUserInfos } from '../userInfosController';
+import { useNavigate, useMatch } from "react-router-dom";
+import EditEventView from "../../view/EditEventView"
 import axios from "axios"
+import { getUserInfos } from '../userInfosController';
 
-export default function NewEventController() {
+export default function EditEventController() {
     // name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate
     const [userInfos, setUserInfos] = React.useState();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        setUserInfos(getUserInfos());
-
-    }, [userInfos])
-
-    if (!userInfos || userInfos.userType !== 'criadorDeEvento') {
-        navigate("/")
-    }
-
+    const [eventInfo, setEventInfo] = useState();
     const [eventValues, setEventValues] = useState({
         name: "",
         creator: "",
@@ -30,6 +20,31 @@ export default function NewEventController() {
         startDate: new Date(),
         finishDate: new Date()
     });
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setUserInfos(getUserInfos());
+    }, [])
+
+    if (!userInfos || userInfos.userType !== 'criadorDeEvento') {
+        navigate("/")
+    }
+
+    const match = useMatch('/:event/edit_event');
+    React.useEffect(() => {
+        function fetchData() {
+          const eventName = match.params.event;
+          axios.post('http://127.0.0.1:5000/api/events/getEventByName',
+            { eventName }).then((response) => {
+              const [eventData] = response.data;
+              console.log(eventData);
+              setEventInfo(eventData);
+            }, (response) => {
+              console.log(response);
+            });
+        };
+        fetchData();
+      }, [])
 
     const handleChangeField = (event, field) => {
         let updatedValue = {};
@@ -53,11 +68,16 @@ export default function NewEventController() {
         var { name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventValues;
         ticketsAvailable = parseInt(ticketsAvailable);
         ticketPrice = parseFloat(ticketPrice);
-        creator = await userInfos._id;
+        
+        //feipa arrumar dps ↓↓↓↓↓↓
+        creator = userInfos._id;
+        participants = eventInfo.participants;
+        presentations = eventInfo.presentations;
+        const _id = eventInfo._id;
         const thumb = '';
         await axios.post(
-            "http://127.0.0.1:5000/api/events/newEvent",
-            { thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate }
+            "http://127.0.0.1:5000/api/events/updateEvent",
+            { _id, thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate }
         ).then(response => {
             showAlert(response.status);
         }, err => {
@@ -66,11 +86,11 @@ export default function NewEventController() {
     };
 
     return (
-        <NewEventView
+        <EditEventView
             handleChangeField={handleChangeField}
             handleSubmit={handleSubmit}
             handleChangeFieldValue={handleChangeFieldValue}
-            startDate={eventValues.startDate}
-            finishDate={eventValues.finishDate} />
+            eventValues = {eventValues}
+            eventInfo = {eventInfo} />
     )
 }
