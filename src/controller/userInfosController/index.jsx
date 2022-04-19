@@ -14,4 +14,12 @@ const getUserId = () => {
     }
 }
 
-export { isUserLoggedIn, getUserId };
+const getUserInfos = () => {
+    if (isUserLoggedIn()){
+        return JSON.parse(localStorage.getItem("userInfos"));
+    }else{
+        return undefined;
+    }
+}
+
+export { isUserLoggedIn, getUserId, getUserInfos };

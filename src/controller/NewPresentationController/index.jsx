@@ -3,6 +3,7 @@ import { useMatch } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import NewPresentationView from '../../view/NewPresentationView'
+import { getUserInfos } from '../userInfosController'
 
 export default function NewPresentationController() {
     // name, seatsAvailable, theme, location, date, duration, presenter, event
@@ -24,7 +25,7 @@ export default function NewPresentationController() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setUserInfos(localStorage.getItem("userInfos"));
+        setUserInfos(getUserInfos());
 
     }, [userInfos])
 
@@ -82,7 +83,7 @@ export default function NewPresentationController() {
         var { name, participants, seatsAvailable, theme, location, date, duration, presenter, event } = presentationValues;
         seatsAvailable = parseInt(seatsAvailable);
         duration = parseInt(duration);
-        presenter = await JSON.parse(userInfos)._id;
+        presenter = await userInfos._id;
         event = eventInfo._id;
         const thumb = '';
         try {

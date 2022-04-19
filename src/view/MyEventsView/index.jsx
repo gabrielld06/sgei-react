@@ -46,7 +46,7 @@ export default function MyEventsView(props) {
                     component="img"
                     alt="evento"
                     height="140"
-                    src={SupimpaLogo}
+                    src={item.thumb ? item.thumb : SupimpaLogo}
                   />
                 </Link>
                 <CardContent>

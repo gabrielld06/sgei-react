@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-
+import { getUserInfos } from '../userInfosController';
 import LoginView from '../../view/LoginView'
 
 export default function LoginController() {
     const [userInfos, setUserInfos] = React.useState();
     const navigate = useNavigate();
     useEffect(() => {
-        setUserInfos(localStorage.getItem("userInfos"));
+        setUserInfos(getUserInfos());
 
     }, [userInfos])
     if (userInfos) {
