@@ -20,7 +20,7 @@ import { isUserLoggedIn } from '../../controller/userInfosController';
 
 import './style.css'
 
-const settings = ['Perfil', 'Configurações', 'Meus Eventos', 'Minhas compras', 'Sair'];
+const settings = ['Perfil', 'Configurações', 'Meus Eventos', 'Minhas palestras', 'Minhas compras', 'Sair'];
 
 const Header = () => {
   const [userLogged, setUserLogged] = React.useState();
@@ -39,8 +39,11 @@ const Header = () => {
       localStorage.removeItem("userInfos");
       navigate("/login")
     }
-    if (option == "Meus Eventos"){
+    if (option === "Meus Eventos"){
       navigate("/myEvents")
+    }
+    if (option === "Minhas palestras"){
+      navigate("/myPresentations")
     }
     setAnchorElUser(null);
   }

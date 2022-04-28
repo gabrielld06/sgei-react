@@ -3,20 +3,18 @@ import { useNavigate } from "react-router-dom";
 import NewEventView from "../../view/NewEventView"
 import { getUserInfos } from '../userInfosController';
 import axios from "axios"
+import mongoose from 'mongoose'
 
 export default function NewEventController() {
     // name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate
     const [userInfos, setUserInfos] = React.useState();
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         setUserInfos(getUserInfos());
-
-    }, [userInfos])
-
-    if (!userInfos || userInfos.userType !== 'criadorDeEvento') {
-        navigate("/")
-    }
+        setLoading(false);
+    }, [])
 
     const [eventValues, setEventValues] = useState({
         name: "",
@@ -30,6 +28,17 @@ export default function NewEventController() {
         startDate: new Date(),
         finishDate: new Date()
     });
+
+    if(loading) {
+        return (
+            <h1>Loading</h1>
+        )
+    }
+
+    //TODO: CHANGE TO FORBIDDEN
+    if (!userInfos || userInfos.userType !== 'criadorDeEvento') {
+        navigate("/")
+    }
 
     const handleChangeField = (event, field) => {
         let updatedValue = {};
@@ -53,7 +62,7 @@ export default function NewEventController() {
         var { name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventValues;
         ticketsAvailable = parseInt(ticketsAvailable);
         ticketPrice = parseFloat(ticketPrice);
-        creator = await userInfos._id;
+        creator = mongoose.Types.ObjectId(userInfos._id);
         const thumb = '';
         await axios.post(
             "http://127.0.0.1:5000/api/events/newEvent",

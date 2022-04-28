@@ -6,7 +6,7 @@ const eventSchema = mongoose.Schema({
         required: true,
     },
     creator: {
-        type: 'string',
+        type: 'ObjectId',
         required: true,
     },
     description: {
@@ -36,7 +36,10 @@ const eventSchema = mongoose.Schema({
     finishDate: {
         type: 'date',
         required: true,
-    }
+    },
+    thumb: {
+        type: 'string',
+    },
 },
     {
         timestamps: true,

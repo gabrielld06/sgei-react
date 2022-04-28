@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import NewPresentationView from '../../view/NewPresentationView'
 import { getUserInfos } from '../userInfosController'
+import mongoose from 'mongoose'
 
 export default function NewPresentationController() {
     // name, seatsAvailable, theme, location, date, duration, presenter, event
@@ -21,21 +22,12 @@ export default function NewPresentationController() {
         presenter: "",
         event: ""
     });
-    // TODO: descomentar, user forbidden
     const navigate = useNavigate();
-
-    useEffect(() => {
-        setUserInfos(getUserInfos());
-
-    }, [userInfos])
-
-    // if (!userInfos || JSON.parse(userInfos).userType !== 'palestrante') {
-    //     navigate("/")
-    // }
 
     const match = useMatch('/:event/:presentation');
     useEffect(() => {
         async function fetchData() {
+            setUserInfos(getUserInfos());
             const filter = match.params.event;
             await axios.post('http://127.0.0.1:5000/api/events',
                 { filter }).then((response) => {
@@ -53,6 +45,11 @@ export default function NewPresentationController() {
         return (
             <h1>Loading</h1>
         )
+    }
+    
+    //TODO: CHANGE TO FORBIDDEN
+    if (!userInfos || userInfos.userType !== 'palestrante') {
+        navigate("/")
     }
 
     if (!eventInfo) {
@@ -83,25 +80,16 @@ export default function NewPresentationController() {
         var { name, participants, seatsAvailable, theme, location, date, duration, presenter, event } = presentationValues;
         seatsAvailable = parseInt(seatsAvailable);
         duration = parseInt(duration);
-        presenter = await userInfos._id;
-        event = eventInfo._id;
+        presenter = mongoose.Types.ObjectId(userInfos._id);
+        event = mongoose.Types.ObjectId(eventInfo._id);
         const thumb = '';
         try {
-            const presentationData = await axios.post(
+            await axios.post(
                 "http://127.0.0.1:5000/api/presentations/newPresentation",
                 { thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event }
             );
-            
-            // const update = presentationData.data._id;
-            // const field = 'presentations';
-
-            // await axios.post(
-            //     "http://127.0.0.1:5000/api/events/updateEvent",
-            //     { event, field, update }
-            // );
 
             showAlert(201);
-
         } catch (err) {
             console.log(err);
             

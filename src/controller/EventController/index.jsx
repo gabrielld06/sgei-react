@@ -33,9 +33,9 @@ export default function EventController() {
 
           if(data) {
             setEventInfo(data);
-            const filterEvent = data._id;
-            await axios.post('http://127.0.0.1:5000/api/presentations', // Get presentations
-              { filterEvent }).then((response) => {
+            const eventId = data._id;
+            await axios.post('http://127.0.0.1:5000/api/presentations/getPresentationsByEvent', // Get presentations
+              { eventId }).then((response) => {
                 const presentationData = response.data;
   
                 setPresentationList(presentationData);

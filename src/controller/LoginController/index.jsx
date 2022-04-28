@@ -49,6 +49,7 @@ export default function LoginController() {
             { username, password }
         ).then(response => {
             localStorage.setItem("userInfos", JSON.stringify(response.data));
+            localStorage.setItem("userId", response.data._id.toString());
             handleShowAlert(response.status);
             navigate("/");
         }, (err) => {

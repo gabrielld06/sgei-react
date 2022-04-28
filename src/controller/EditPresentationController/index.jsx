@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useMatch } from "react-router-dom";
-import EditEventView from "../../view/EditEventView"
+import EditPresentationView from "../../view/EditPresentationView"
 import axios from "axios"
 import { getUserInfos } from '../userInfosController';
 
-export default function EditEventController() {
+export default function EditPresentationController() {
+    // name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate
     const [userInfos, setUserInfos] = React.useState();
-    const [eventInfo, setEventInfo] = useState();
+    const [presentationInfo, setPresentationInfo] = useState();
     const [loading, setLoading] = useState(true);
-
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,15 +20,15 @@ export default function EditEventController() {
         navigate("/")
     }
 
-    const match = useMatch('/:event/edit_event');
+    const match = useMatch('/:event/:presentation/edit_presentation');
     React.useEffect(() => {
         function fetchData() {
-          const eventName = match.params.event;
-          axios.post('http://127.0.0.1:5000/api/events/getEventByName',
-            { eventName }).then((response) => {
-              const [eventData] = response.data;
-              console.log(eventData);
-              setEventInfo(eventData);
+          const filterName = match.params.presentation;
+          axios.post('http://127.0.0.1:5000/api/presentations',
+            { filterName }).then((response) => {
+              const [presentationData] = response.data;
+              console.log(presentationData);
+              setPresentationInfo(presentationData);
               setLoading(false);
             }, (response) => {
               console.log(response);
@@ -39,8 +40,8 @@ export default function EditEventController() {
     const handleChangeField = (event, field) => {
         let updatedValue = {};
         updatedValue[field] = event.target.value;
-        setEventInfo(evtValues => ({
-            ...evtValues,
+        setPresentationInfo(prstValues => ({
+            ...prstValues,
             ...updatedValue
         }));
     }
@@ -48,20 +49,21 @@ export default function EditEventController() {
     const handleChangeFieldValue = (newValue, field) => {
         let updatedValue = {};
         updatedValue[field] = newValue;
-        setEventInfo(evtValues => ({
-            ...evtValues,
+        setPresentationInfo(prstValues => ({
+            ...prstValues,
             ...updatedValue
         }));
     }
 
     const handleSubmit = async (showAlert) => {
-        var { _id, thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventInfo;
-        ticketsAvailable = parseInt(ticketsAvailable);
-        ticketPrice = parseFloat(ticketPrice);
-    
+        var { _id, thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event } = presentationInfo;
+        seatsAvailable = parseInt(seatsAvailable);
+        duration = parseInt(duration);
+
+        console.log(presentationInfo);
         await axios.post(
-            "http://127.0.0.1:5000/api/events/updateEvent",
-            { _id, thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate }
+            "http://127.0.0.1:5000/api/presentations/updatePresentation",
+            { _id, thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event }
         ).then(response => {
             showAlert(response.status);
         }, err => {
@@ -74,10 +76,10 @@ export default function EditEventController() {
     }
 
     return (
-        <EditEventView
+        <EditPresentationView
             handleChangeField={handleChangeField}
             handleSubmit={handleSubmit}
             handleChangeFieldValue={handleChangeFieldValue}
-            eventInfo = {eventInfo} />
+            presentationInfo = {presentationInfo} />
     )
 }

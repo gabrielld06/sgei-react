@@ -18,15 +18,14 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function EditEventView(props) {
-    const { handleChangeField, handleSubmit, handleChangeFieldValue, eventInfo } = props;
+export default function EditPresentationView(props) {
+    const { handleChangeField, handleSubmit, handleChangeFieldValue, presentationInfo } = props;
     const [showAlert, setShowAlert] = React.useState(false);
-    const [eventStatus, setEventStatus] = React.useState(false);
-    const [dateStart, setDateStart] = React.useState(eventInfo.startDate);
-    const [dateEnd, setDateEnd] = React.useState(eventInfo.endDate);
+    const [presentationStatus, setPresentationStatus] = React.useState(false);
+    const [date, setDate] = React.useState(presentationInfo.date);
     
     const handleShowAlert = (message) => {
-        setEventStatus(message);
+        setPresentationStatus(message);
         setShowAlert(true)
     };
     
@@ -37,7 +36,7 @@ export default function EditEventView(props) {
 
         setShowAlert(false);
     };
-    if (!eventInfo) {
+    if (!presentationInfo) {
 
         return (
             <h1>Carregando informações</h1>
@@ -56,36 +55,30 @@ export default function EditEventView(props) {
                             alt="green iguana"
                         />
                         <Grid item xs container direction="row" justifyContent="space-evenly">
-                            <TextField id="name" defaultValue={eventInfo.name} label="Nome do evento" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "name") }} />
-                            <TextField id="description" defaultValue={eventInfo.description} label="Descrição do evento" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "description") }} />
-                            <TextField id="ticketsAvailable" defaultValue={eventInfo.ticketsAvailable} label="Quantidade de ingressos disponíveis" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "ticketsAvailable") }} />
-                            <TextField id="ticketPrice" defaultValue={eventInfo.ticketPrice} label="Preço dos ingressos" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "ticketPrice") }} />
+                            <TextField id="name" defaultValue={presentationInfo.name} label="Nome da palestra" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "name") }} />
+                            <TextField id="theme" defaultValue={presentationInfo.theme} label="Tema da palestra" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "theme") }} />
+                            <TextField id="seatsAvailable" defaultValue={presentationInfo.seatsAvailable} label="Quantidade de assentos disponiveis" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "seatsAvailable") }} />
+                            <TextField id="location" defaultValue={presentationInfo.location} label="Local" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "location") }} />
                         </Grid>
                         <Divider orientation="vertical" flexItem />
                         <Grid item xs container direction="column" >
-                            <TextField id="location" defaultValue={eventInfo.location} label="Local" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "location") }} />
+                            <TextField id="duration" defaultValue={presentationInfo.duration} label="Duração" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "duration") }} />
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DateTimePicker
                                     label="Data e hora de início"
-                                    value={dateStart}
-                                    onChange={(e) => { setDateStart(e); handleChangeFieldValue(dateStart, "startDate"); }}
-                                    renderInput={(params) => <TextField sx={userFieldStyle} {...params} />}
-                                />
-                                <DateTimePicker
-                                    label="Data e hora de término"
-                                    value={dateEnd}
-                                    onChange={(e) => { setDateEnd(e); handleChangeFieldValue(dateEnd, "finishDate"); }}
+                                    value={date}
+                                    onChange={(e) => {setDate(e); handleChangeFieldValue(date, "date");}}
                                     renderInput={(params) => <TextField sx={userFieldStyle} {...params} />}
                                 />
                             </LocalizationProvider>
-                            <Button variant="contained" sx={{ m: 2 }} onClick={() => { handleSubmit(handleShowAlert); }} >Atualizar evento</Button>
+                            <Button variant="contained" sx={{ m: 2 }} onClick={() => { handleSubmit(handleShowAlert); }} >Atualizar palestra</Button>
                         </Grid>
                     </Grid>
                 </Box>
                 <Snackbar open={showAlert} onClose={handleAlertClose} autoHideDuration={3000}>
-                    {eventStatus === 201
-                        ? <Alert severity="success">Evento editado com sucesso!</Alert>
-                        : <Alert severity="error">Falha ao editar evento, verifique os campos!</Alert>}
+                    {presentationStatus === 201
+                        ? <Alert severity="success">Palestra criada com sucesso!</Alert>
+                        : <Alert severity="error">Falha ao criar palestra, verifique os campos!</Alert>}
                 </Snackbar>
             </div>
         </div>

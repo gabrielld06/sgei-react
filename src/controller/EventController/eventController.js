@@ -14,10 +14,10 @@ const getEventByName = asyncHandler(async (req, res) =>{
 })
 
 const getUserEvents = asyncHandler(async (req, res) => {
-    const { userId, filter } = req.body;
+    const { userId } = req.body;
     const userEvents = await Event.find({ creator: userId });
     console.log(userEvents);
-    res.json(userEvents.filter(e => e.name.includes(filter)));
+    res.json(userEvents);
 })
 
 const newEvent = asyncHandler(async (req, res) => {

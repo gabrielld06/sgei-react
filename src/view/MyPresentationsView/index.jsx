@@ -6,8 +6,8 @@ import SupimpaLogo from '../../assets/supimpa.png'
 import Header from '../../components/Header'
 import './styles.css'
 
-export default function MyEventsView(props) {
-  const { myEventList, handleChangeField, handleSearch, filter } = props;
+export default function MyPresentationView(props) {
+  const { myPresentationList, handleChangeField, handleSearch, filter } = props;
   const matches = useMediaQuery('(min-width:768px)');
  
   return (
@@ -39,7 +39,8 @@ export default function MyEventsView(props) {
             rowGap={2}
             columnGap={2}
             alignItems="center">
-            {myEventList.filter(e => (filter === "" ? e : e.name.includes(filter))).map((item) => (
+                
+            {myPresentationList.filter(e => (filter === "" ? e : e.name.includes(filter))).map((item) => (
               <Card key={`${item.name}`} sx={{ minWidth: 345 }}>
                 <Link to={`/${item.name}`}>
                   <CardMedia
@@ -54,12 +55,13 @@ export default function MyEventsView(props) {
                     {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.description}
+                    {item.theme}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button component={Link} to={`/${item.name}`} size="small">Ver evento</Button>
-                  <Button component={Link} to={`/${item.name}/edit_event`} size="small">Editar evento</Button>
+                    {console.log(item.event)}
+                  <Button component={Link} to={`/${item.event[0].name}/${item.name}`} size="small">Ver palestra</Button>
+                  <Button component={Link} to={`/${item.event[0].name}/${item.name}/edit_presentation`} size="small">Editar palestra</Button>
                 </CardActions>
               </Card>
             ))}

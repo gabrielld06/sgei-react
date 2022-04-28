@@ -29,13 +29,13 @@ const presentationSchema = mongoose.Schema({
         required: true,
     },
     presenter: {
-        type: 'string',
+        type: 'ObjectId',
         required: true,
     },
     event: {
-        type: 'string',
+        type: 'ObjectId',
         required: true,
-    }
+    },
 },
     {
         timestamps: true,
