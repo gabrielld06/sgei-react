@@ -39,8 +39,9 @@ export default function MyTicketsView(props) {
             rowGap={2}
             columnGap={2}
             alignItems="center">
+              {console.log(filter)}
             {myTicketList.filter(e => (filter === "" ? e : e.eventInfo.name.includes(filter))).map((item) => (
-              <Card key={`${item.eventInfo.name}`} sx={{ minWidth: 345 }}>
+              <Card key={`${item._id}`} sx={{ minWidth: 345 }}>
                 <Link to={`/${item.eventInfo.name}`}>
                   <CardMedia
                     component="img"
