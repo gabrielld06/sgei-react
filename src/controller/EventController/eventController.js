@@ -7,6 +7,27 @@ const getEvents = asyncHandler(async (req, res) => {
     res.json(events.filter(e => e.name.includes(filter)));
 });
 
+const getEventPresentationsByName = asyncHandler(async (req, res) => {
+    const { eventName } = req.body;
+
+    const eventPresentations = await Event.aggregate([
+        {
+            "$match": {
+                "name": eventName
+            }
+        },
+        {
+            "$lookup": {
+                "from": "apresentacoes",
+                "localField": "_id",
+                "foreignField": "event",
+                "as": "presentationList"
+            }
+        }]);
+
+    res.json(eventPresentations);
+})
+
 const getEventByName = asyncHandler(async (req, res) =>{
     const { eventName }  = req.body;
     const event = await Event.find({name: eventName});
@@ -88,4 +109,4 @@ const updateEvent = asyncHandler(async (req, res) => {
     }).clone().catch(function (err) { console.log(err) });
 });
 
-export { getEvents, getEventByName, getUserEvents, newEvent, updateEvent };
+export { getEvents, getEventPresentationsByName, getEventByName, getUserEvents, newEvent, updateEvent };

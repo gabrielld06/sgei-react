@@ -5,45 +5,23 @@ import EventView from '../../view/EventView'
 
 export default function EventController() {
   const [eventInfo, setEventInfo] = useState();
-  const [filter, setFilter] = useState();
-  const [presentationList, setPresentationList] = useState();
-  const [presentationShowList, setPresentationShowList] = useState();
+  const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const filterPresentations = () => {
-    setPresentationShowList(presentationList.filter(p => p.name.includes(filter)));
-  }
 
   const handleChangeField = (event) => {
     setFilter(event.target.value);
   }
 
-  const handleSearch = (event) => {
-    filterPresentations();
-  }
-  
   const match = useMatch('/:event');
 
   useEffect(() => {
     async function fetchData() {
-      const filter = match.params.event;
-      await axios.post('http://127.0.0.1:5000/api/events', // Get events
-        { filter }).then(async (response) => {
-          const [data] = response.data;
-
-          if(data) {
-            setEventInfo(data);
-            const eventId = data._id;
-            await axios.post('http://127.0.0.1:5000/api/presentations/getPresentationsByEvent', // Get presentations
-              { eventId }).then((response) => {
-                const presentationData = response.data;
-  
-                setPresentationList(presentationData);
-                setPresentationShowList(presentationData);
-              }, (response) => {
-                console.log(response);
-              });
-          }
+      const eventName = match.params.event;
+      await axios.post('http://127.0.0.1:5000/api/events/getEventPresentationsByName', // Get presentations
+        { eventName }).then((response) => {
+          const [eventData] = response.data;
+          console.log(eventData);
+          setEventInfo(eventData);
         }, (response) => {
           console.log(response);
         });
@@ -56,9 +34,8 @@ export default function EventController() {
     <EventView
       event={eventInfo}
       loading={loading}
-      presentations={presentationShowList}
+      filter={filter}
       handleChangeField={handleChangeField}
-      handleSearch={handleSearch}
     />
   )
 }

@@ -13,8 +13,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function EventView(props) {
     const matches = useMediaQuery('(min-width:768px)');
-    const { name, description, totalPresentations, location, startDate, finishDate, ticketPrice, ticketsAvailable, handleTicketCount, handleBuyTicketClick, ticketCount } = props;
-
+    const { eventInfo, handleTicketCount, handleBuyTicketClick, ticketCount } = props;
+    const { name, description, ticketPrice, location, startDate, finishDate, presentationList } = eventInfo;
+    var { ticketsAvailable } = eventInfo;
     const [showAlert, setShowAlert] = React.useState(false);
     const [alertMessage, setAlertMessage] = React.useState("");
     const [eventStatus, setEventStatus] = React.useState(false);
@@ -77,7 +78,7 @@ export default function EventView(props) {
                         <div className='eventCardInfoBreak'>
                             <p className='eventInfo'>Valor do ingresso: R${ticketPrice.toFixed(2)}</p>
                             <p className='eventInfo'>Ingressos disponiveis: {ticketsAvailable}</p>
-                            <p className='eventInfo'>Total de palestras no evento: {totalPresentations}</p>
+                            <p className='eventInfo'>Total de palestras no evento: {presentationList.length}</p>
                         </div>
                     </div>
                 </Box>

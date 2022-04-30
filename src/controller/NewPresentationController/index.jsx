@@ -49,7 +49,7 @@ export default function NewPresentationController() {
     
     //TODO: CHANGE TO FORBIDDEN
     if (!userInfos || userInfos.userType !== 'palestrante') {
-        navigate("/")
+        // navigate("/")
     }
 
     if (!eventInfo) {

@@ -10,7 +10,7 @@ import './styles.css'
 
 export default function EventView(props) {
   const matches = useMediaQuery('(min-width:768px)');
-  const { event, loading, presentations, handleChangeField, handleSearch } = props;
+  const { event, loading, filter, handleChangeField } = props;
   const [userInfo, setUserInfo] = React.useState();
   // const navigate = useNavigate();
   React.useEffect(() => {
@@ -34,7 +34,7 @@ export default function EventView(props) {
       </div>
     )
   }
-  const { name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable } = event;
+  const { name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable, presentationList } = event;
 
   const sDate = new Date(startDate);
   const fDate = new Date(finishDate);
@@ -48,7 +48,6 @@ export default function EventView(props) {
             alt="evento"
             width="100%"
             height="140"
-            // sx={{border : 1 }}
             src={SupimpaLogo}
           />
           <div className='eventCardInfo'>
@@ -82,11 +81,10 @@ export default function EventView(props) {
             label="Busca"
             sx={{ "width": "50%", "marginBottom": "16px" }}
             onChange={(e) => { handleChangeField(e) }}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <SearchIcon onClick={handleSearch} />
+                  <SearchIcon />
                 </InputAdornment>
               ),
             }}
@@ -99,7 +97,7 @@ export default function EventView(props) {
             rowGap={2}
             columnGap={2}
             alignItems="center">
-            {presentations.map((item) => (
+            {presentationList.filter(e => (filter === "" ? e : e.name.includes(filter))).map((item) => (
               <Card key={`${item.name}`} sx={{ minWidth: 345 }}>
                 <Link to={`/${item.name}`}>
                   <CardMedia
