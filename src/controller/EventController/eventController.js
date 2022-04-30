@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Event from '../../model/Events/eventModel.js'
+import mongoose from 'mongoose'
 
 const getEvents = asyncHandler(async (req, res) => {
     const { filter } = req.body;
@@ -28,9 +29,39 @@ const getEventPresentationsByName = asyncHandler(async (req, res) => {
     res.json(eventPresentations);
 })
 
-const getEventByName = asyncHandler(async (req, res) =>{
-    const { eventName }  = req.body;
-    const event = await Event.find({name: eventName});
+const getEventPresentationsByNameAndCreator = asyncHandler(async (req, res) => {
+    const { eventName, creatorId } = req.body;
+
+    const id = mongoose.Types.ObjectId(creatorId);
+
+    const event = await Event.aggregate([
+        {
+            "$match": {
+                "$and": [
+                    {
+                        "name": eventName
+                    },
+                    {
+                        "creator": id
+                    }
+                ]
+            }
+        },
+        {
+            "$lookup": {
+                "from": "apresentacoes",
+                "localField": "_id",
+                "foreignField": "event",
+                "as": "presentationList"
+            }
+        }]);
+
+    res.json(event);
+})
+
+const getEventByName = asyncHandler(async (req, res) => {
+    const { eventName } = req.body;
+    const event = await Event.find({ name: eventName });
     res.json(event);
 })
 
@@ -43,6 +74,7 @@ const getUserEvents = asyncHandler(async (req, res) => {
 
 const newEvent = asyncHandler(async (req, res) => {
     const { thumb, name, creator, description, participants, ticketsAvailable, ticketPrice, location, startDate, finishDate } = req.body;
+    const ticketsSold = 0;
     const newEvent = await Event.create({
         thumb,
         name,
@@ -50,6 +82,7 @@ const newEvent = asyncHandler(async (req, res) => {
         description,
         participants,
         ticketsAvailable,
+        ticketsSold,
         ticketPrice,
         location,
         startDate,
@@ -76,7 +109,7 @@ const newEvent = asyncHandler(async (req, res) => {
 });
 
 const updateEvent = asyncHandler(async (req, res) => {
-    const { _id, thumb, name, creator, description, ticketsAvailable, ticketPrice, location, startDate, finishDate } = req.body;
+    const { _id, thumb, name, creator, description, ticketsAvailable, ticketsSold, ticketPrice, location, startDate, finishDate } = req.body;
 
     await Event.findByIdAndUpdate({ '_id': _id }, {
         thumb: thumb,
@@ -84,6 +117,7 @@ const updateEvent = asyncHandler(async (req, res) => {
         creator: creator,
         description: description,
         ticketsAvailable: ticketsAvailable,
+        ticketsSold: ticketsSold,
         ticketPrice: ticketPrice,
         location: location,
         startDate: startDate,
@@ -100,6 +134,7 @@ const updateEvent = asyncHandler(async (req, res) => {
                 creator,
                 description,
                 ticketsAvailable,
+                ticketsSold,
                 ticketPrice,
                 location,
                 startDate,
@@ -109,4 +144,4 @@ const updateEvent = asyncHandler(async (req, res) => {
     }).clone().catch(function (err) { console.log(err) });
 });
 
-export { getEvents, getEventPresentationsByName, getEventByName, getUserEvents, newEvent, updateEvent };
+export { getEvents, getEventPresentationsByName, getEventPresentationsByNameAndCreator, getEventByName, getUserEvents, newEvent, updateEvent };

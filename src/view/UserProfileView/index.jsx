@@ -7,7 +7,6 @@ import ComboBox from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import MuiAlert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import LoginView from '../LoginView';
 
 import './styles.css'
 
@@ -27,7 +26,6 @@ export default function UserProfileView(props) {
     const { handleChangeField, handleSubmit, handleChangeFieldValue, userInfos } = props;
     const [showAlert, setShowAlert] = React.useState(false);
     const [eventStatus, setEventStatus] = React.useState(false);
-    const [userAuthValues, setUserAuthValues] = React.useState();
 
     const handleShowAlert = (message) => {
         setEventStatus(message);

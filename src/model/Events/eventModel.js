@@ -21,6 +21,10 @@ const eventSchema = mongoose.Schema({
         type: 'number',
         required: true,
     },
+    ticketsSold: {
+        type: 'number',
+        required: true,
+    },
     ticketPrice: {
         type: 'number',
         required: true,

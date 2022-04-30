@@ -29,6 +29,16 @@ const getPresentationsByEvent = asyncHandler(async (req, res) => {
     res.json(userPresentations);
 });
 
+const getUserPresentationByNameAndEvent = asyncHandler(async (req, res) => {
+    const { user, event, presentationName } = req.body;
+
+    const userId = mongoose.Types.ObjectId(user);
+    const eventId = mongoose.Types.ObjectId(event);
+    const presentation = await Presentation.find({"presenter" : userId, "name" : presentationName, "event" : eventId});
+
+    res.json(presentation);
+})
+
 const getUserPresentations = asyncHandler(async (req, res) => {
     const { userId } = req.body;
 
@@ -120,4 +130,4 @@ const updatePresentation = asyncHandler(async (req, res) => {
     }).clone().catch(function (err) { console.log(err) });
 });
 
-export { getPresentations, newPresentation, updatePresentation, getPresentationsByEvent, getUserPresentations };
+export { getPresentations, newPresentation, updatePresentation, getPresentationsByEvent, getUserPresentations, getUserPresentationByNameAndEvent };

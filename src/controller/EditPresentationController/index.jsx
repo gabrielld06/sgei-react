@@ -16,7 +16,7 @@ export default function EditPresentationController() {
         setUserInfos(getUserInfos());
     }, [])
 
-    if (!userInfos || userInfos.userType !== 'criadorDeEvento') {
+    if (!userInfos || userInfos.userType !== 'apresentador') {
         navigate("/")
     }
 

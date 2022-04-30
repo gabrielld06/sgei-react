@@ -16,11 +16,13 @@ import SupimpaLogo from '../../assets/supimpa.png'
 import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
-import { isUserLoggedIn } from '../../controller/userInfosController';
+import { isUserLoggedIn, getUserInfos } from '../../controller/userInfosController';
 
 import './style.css'
 
-const settings = ['Perfil', 'Configurações', 'Meus Eventos', 'Minhas palestras', 'Minhas compras', 'Sair'];
+const settingsOptions = [['Perfil', 'Minhas compras', 'Sair'], ['Perfil', 'Meus Eventos', 'Minhas compras', 'Sair'], ['Perfil', 'Minhas palestras', 'Minhas compras', 'Sair']];
+const userType = {'espectador' : 0, 'criadorDeEvento' : 1, 'apresentador': 2};
+var settings = [];
 
 const Header = () => {
   const [userLogged, setUserLogged] = React.useState();
@@ -29,7 +31,12 @@ const Header = () => {
   React.useEffect(() => {
     setUserLogged(isUserLoggedIn());
   }, [userLogged])
-  
+
+  if(userLogged) {
+    const userAccountType = getUserInfos().userType;
+    settings = settingsOptions[userType[userAccountType]];
+  }
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -47,6 +54,9 @@ const Header = () => {
     }
     if (option === "Minhas palestras"){
       navigate("/myPresentations")
+    }
+    if (option === "Minhas compras"){
+      navigate("/myTickets")
     }
     setAnchorElUser(null);
   }

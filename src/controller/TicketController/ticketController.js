@@ -11,7 +11,7 @@ const newTicket = asyncHandler(async (req, res) => {
 
     console.log(req.body);
 
-    for(let i = 0;i < ticketCount;i++) {
+    for (let i = 0; i < ticketCount; i++) {
         const newTicket = await Ticket.create({
             event,
             user,
@@ -34,4 +34,39 @@ const newTicket = asyncHandler(async (req, res) => {
     }
 });
 
-export { newTicket };
+const getUserTickets = asyncHandler(async (req, res) => {
+    const { userId } = req.body;
+    const id = mongoose.Types.ObjectId(userId);
+    const ticketList = await Ticket.aggregate([
+        {
+            "$match": {
+                "user": id
+            }
+        },
+        {
+            "$lookup": {
+                "from": "eventos",
+                "localField": "event",
+                "foreignField": "_id",
+                "as": "eventInfo"
+            }
+        },
+        {
+            "$unwind": "$eventInfo"
+        }
+    ]);
+
+    res.json(ticketList);
+})
+
+const getTickets = asyncHandler(async (req, res) => {
+    const { userId, eventId } = req.body;
+    const user = mongoose.Types.ObjectId(userId);
+    const event = mongoose.Types.ObjectId(eventId);
+
+    const tickets = await Ticket.find({user: user, event : event});
+
+    res.json(tickets);
+})
+
+export { newTicket, getUserTickets, getTickets };

@@ -5,7 +5,7 @@ import axios from 'axios'
 import PresentationView from '../../view/PresentationView'
 
 export default function PresentationController() {
-const [presentationInfo, setPresentationInfo] = React.useState();
+  const [presentationInfo, setPresentationInfo] = React.useState();
   const [loading, setLoading] = React.useState(true);
 
   const match = useMatch('/:event/:presentation');
@@ -24,18 +24,13 @@ const [presentationInfo, setPresentationInfo] = React.useState();
     };
     fetchData();
   }, [])
-  if(loading) {
+
+  if (loading) {
     return (<h1>Loading</h1>);
   }
-  const { name, seatsAvailable, theme, location, date, duration } = presentationInfo;
-  console.log(name);
+
   return (
-    <PresentationView 
-      name={name}
-      seatsAvailable={seatsAvailable}
-      theme={theme}
-      location={location}
-      date={date}
-      duration={duration}/>
+    <PresentationView
+      presentationInfo={presentationInfo} />
   )
 }

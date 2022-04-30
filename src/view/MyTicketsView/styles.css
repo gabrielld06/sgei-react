@@ -22,12 +22,6 @@
     width: 80%;
 }
 
-.createEvent {
-    position: fixed;
-    bottom: 17px;
-    right: 17px;
-}
-
 @media (max-width: 768px) {
     .leftSide {
         margin: 10px auto;

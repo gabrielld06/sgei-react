@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMediaQuery, Card, CardActions, CardContent, CardMedia, Button, Typography, Grid, Divider, Box, Fab, TextField, InputAdornment } from '@mui/material'
+import { useMediaQuery, Card, CardActions, CardContent, CardMedia, Button, Typography, Grid, Divider, Box, Fab, TextField, InputAdornment, Tooltip } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ export default function EventView(props) {
   const matches = useMediaQuery('(min-width:768px)');
   const { event, loading, filter, handleChangeField } = props;
   const [userInfo, setUserInfo] = React.useState();
-  // const navigate = useNavigate();
+  
   React.useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfos")));
   }, []);
@@ -124,11 +124,13 @@ export default function EventView(props) {
         </Box>
         {(userInfo && userInfo.userType === "apresentador") &&
           <div className="createPresentation" >
-            <Button component={Link} to={`newPresentation`}>
-              <Fab aria-label="Criar apresentação">
-                <AddIcon />
-              </Fab>
-            </Button>
+            <Tooltip title="Criar apresentação">
+              <Button component={Link} to={`newPresentation`}>
+                <Fab aria-label="Criar apresentação">
+                  <AddIcon />
+                </Fab>
+              </Button>
+            </Tooltip>
           </div>
         }
       </ Grid>

@@ -1,0 +1,22 @@
+.mainContainer {
+    display: flex;
+    text-align: center;
+    min-height: 100vh;
+    width: 100%;
+    margin: 16px 0;
+    flex-wrap: nowrap;
+}
+
+.eventInfo {
+    margin: 0px;
+    font-family: "Lucida Sans Unicode", "Courier New", sans-serif;
+}
+
+.eventCardInfoBreak {
+    margin-bottom: 16px;
+}
+
+.eventCardInfo {
+    margin: 6px;
+    padding: 6px;
+}

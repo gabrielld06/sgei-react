@@ -77,8 +77,8 @@ export default function EditPresentationView(props) {
                 </Box>
                 <Snackbar open={showAlert} onClose={handleAlertClose} autoHideDuration={3000}>
                     {presentationStatus === 201
-                        ? <Alert severity="success">Palestra criada com sucesso!</Alert>
-                        : <Alert severity="error">Falha ao criar palestra, verifique os campos!</Alert>}
+                        ? <Alert severity="success">Palestra atualizada com sucesso!</Alert>
+                        : <Alert severity="error">Falha ao atualizar palestra, verifique os campos!</Alert>}
                 </Snackbar>
             </div>
         </div>

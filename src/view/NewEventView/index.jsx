@@ -24,7 +24,7 @@ export default function NewEventView(props) {
     const [eventStatus, setEventStatus] = React.useState(false);
     const [dateStart, setDateStart] = React.useState(startDate);
     const [dateEnd, setDateEnd] = React.useState(endDate);
-
+    
     const handleShowAlert = (message) => {
         setEventStatus(message);
         setShowAlert(true)
