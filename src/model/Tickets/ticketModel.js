@@ -2,7 +2,11 @@ import mongoose from 'mongoose'
 
 const ticketSchema = mongoose.Schema({
     event: {
-        type: 'string',
+        type: 'ObjectId',
+        required: true,
+    },
+    user: {
+        type: 'ObjectId',
         required: true,
     }
 },
