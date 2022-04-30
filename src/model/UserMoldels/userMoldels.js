@@ -60,6 +60,17 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
+userSchema.pre('findOneAndUpdate', async function (next) {
+    let data = this.getUpdate();
+    if (!data.password) {
+        console.log(data.password);
+        next();
+    } else {
+        const salt = await bcrypt.genSalt();
+        data.password = await bcrypt.hash(data.password, salt);
+    }
+});
+
 const User = mongoose.model("usuarios", userSchema);
 
 export default User;

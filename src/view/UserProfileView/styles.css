@@ -1,0 +1,26 @@
+.userInfosBox {
+    display: flex;
+    text-align: center;
+    min-height: 100vh;
+    flex-direction: column;
+    padding: 0px;
+    margin: 16px auto;
+    width: 25%;
+}
+
+.userInfos {
+    margin: 0px;
+    font-family: "Lucida Sans Unicode", "Courier New", sans-serif;
+}
+
+.userInfosCardBreak {
+    margin-bottom: 16px;
+}
+
+.userInfosCard {
+    margin: 6px;
+    padding: 6px;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}

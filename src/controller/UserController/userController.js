@@ -1,4 +1,5 @@
 // const { ErrorRounded } = require('@mui/icons-material');
+import mongoose from 'mongoose';
 import asyncHandler from 'express-async-handler';
 import User from '../../model/UserMoldels/userMoldels.js'
 import generateToken from '../../../server/utils/GenerateToken/index.js'
@@ -72,18 +73,93 @@ const authUser = asyncHandler(async (req, res) => {
             _id: account._id,
             username: account.username,
             userType: account.userType,
-            phone: account.phone,
-            address: account.address,
-            city: account.city,
-            email: account.email,
-            cpf_cnpj: account.cpf_cnpj,
             token: generateToken(account._id),
         });
     } else {
         res.status(401);
         throw new Error("Email ou senha invalido");
     }
-
 });
 
-export { registerUser, authUser };
+const getUserInfos = asyncHandler(async (req, res) => {
+    const { userId } = req.body;
+    const id = mongoose.Types.ObjectId(userId);
+    const [account] = await User.find({ "_id": id });
+    if (account) {
+        res.status(201).json({
+            _id: account._id,
+            username: account.username,
+            userType: account.userType,
+            password: "",
+            phone: account.phone,
+            address: account.address,
+            city: account.city,
+            email: account.email,
+            cpf_cnpj: account.cpf_cnpj,
+        });
+    } else {
+        res.status(401);
+        throw new Error("Email ou senha invalido");
+    }
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+    const { _id, username, userType, password, phone, address, city, email, cpf_cnpj } = req.body;
+
+    if (password === "") {
+        await User.findByIdAndUpdate({ '_id': _id }, {
+            username: username,
+            userType: userType,
+            phone: phone,
+            address: address,
+            city: city,
+            email: email,
+            cpf_cnpj: cpf_cnpj
+        }, (err, result) => {
+            if (err) {
+                res.send(err);
+            }
+            if (result) {
+                res.status(201).json({
+                    _id,
+                    username,
+                    userType,
+                    phone,
+                    address,
+                    city,
+                    email,
+                    cpf_cnpj
+                })
+            }
+        }).clone().catch(function (err) { console.log(err) });
+    } else {
+        await User.findByIdAndUpdate({ '_id': _id }, {
+            username: username,
+            userType: userType,
+            password: password,
+            phone: phone,
+            address: address,
+            city: city,
+            email: email,
+            cpf_cnpj: cpf_cnpj
+        }, (err, result) => {
+            if (err) {
+                res.send(err);
+            }
+            if (result) {
+                res.status(201).json({
+                    _id,
+                    username,
+                    userType,
+                    phone,
+                    address,
+                    city,
+                    email,
+                    cpf_cnpj
+                })
+            }
+        }).clone().catch(function (err) { console.log(err) });
+    }
+})
+
+export { registerUser, authUser, getUserInfos, updateUser };

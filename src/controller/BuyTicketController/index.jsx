@@ -78,8 +78,7 @@ export default function EventController() {
       });
 
   }
-  // O textfield ta aceitando caracteres não-numéricos, tem que arrumar pra aceitar só numero. Mas o handle não é chamado pelo onChange quando o usuário coloca um valor que é string
-  // por causa do props type='numeric' que faz as setinhas aparecerem do lado do texto
+  
   const handleTicketCount = (value) => {
     if (value > ticketsAvailable) {
       value = ticketsAvailable

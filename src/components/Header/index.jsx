@@ -39,6 +39,9 @@ const Header = () => {
       localStorage.removeItem("userInfos");
       navigate("/login")
     }
+    if (option === "Perfil"){
+      navigate("/myProfile");
+    }
     if (option === "Meus Eventos"){
       navigate("/myEvents")
     }

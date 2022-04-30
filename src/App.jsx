@@ -16,7 +16,7 @@ import NewPresentationController from './controller/NewPresentationController'
 import BuyTicketController from './controller/BuyTicketController'
 import EditEventController from "./controller/EditEventController";
 import EditPresentationController from "./controller/EditPresentationController";
-
+import UserProfileController from "./controller/UserProfileController";
 function App() {
 
   return (
@@ -25,6 +25,7 @@ function App() {
         <Route path="/" element={<HomeController />} />
         <Route path="/login" element={<LoginController />} />
         <Route path="/signup" element={<SignUpController />} />
+        <Route path="/myProfile" element={<UserProfileController />} />
         <Route path="/newEvent" element={<NewEventController />} />
         <Route path="/myEvents" element={<MyEventsController />} />
         <Route path="/myPresentations" element={<MyPresentationsController />} />
