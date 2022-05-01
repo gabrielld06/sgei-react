@@ -10,8 +10,6 @@ import Snackbar from '@mui/material/Snackbar';
 
 import './styles.css'
 
-// da pra criar um desse no Models e só importar, deixaria o código fácil de manutenções no futuro caso seja nessário
-// adicionar um novo tipo de usuário.
 const userTypes = [
     { label: "Espectador", userType: "espectador" },
     { label: "Criador de Eventos", userType: "criadorDeEvento" },

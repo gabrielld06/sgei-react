@@ -7,7 +7,7 @@ import Header from '../../components/Header'
 import './styles.css'
 
 export default function MyEventsView(props) {
-  const { myEventList, handleChangeField, handleSearch, filter } = props;
+  const { myEventList, handleChangeField, filter } = props;
   const matches = useMediaQuery('(min-width:768px)');
  
   return (
@@ -19,11 +19,10 @@ export default function MyEventsView(props) {
             id="searchField"
             label="Busca"
             onChange={(e) => { handleChangeField(e) }}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <SearchIcon onClick={handleSearch} />
+                  <SearchIcon/>
                 </InputAdornment>
               ),
             }}
@@ -46,7 +45,7 @@ export default function MyEventsView(props) {
                     component="img"
                     alt="evento"
                     height="140"
-                    src={item.thumb ? item.thumb : SupimpaLogo}
+                    src={item.thumb === "" ? SupimpaLogo : item.thumb}
                   />
                 </Link>
                 <CardContent>
@@ -60,6 +59,7 @@ export default function MyEventsView(props) {
                 <CardActions>
                   <Button component={Link} to={`/${item.name}`} size="small">Ver evento</Button>
                   <Button component={Link} to={`/${item.name}/edit_event`} size="small">Editar evento</Button>
+                  <Button component={Link} to={`/${item.name}/event_report`} size="small">Gerar relatório</Button>
                 </CardActions>
               </Card>
             ))}

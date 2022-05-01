@@ -14,7 +14,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function EventView(props) {
     const matches = useMediaQuery('(min-width:768px)');
     const { eventInfo, handleTicketCount, handleBuyTicketClick, ticketCount } = props;
-    const { name, description, ticketPrice, location, startDate, finishDate, presentationList } = eventInfo;
+    const {thumb, name, description, ticketPrice, location, startDate, finishDate, presentationList } = eventInfo;
     var { ticketsAvailable } = eventInfo;
     const [showAlert, setShowAlert] = React.useState(false);
     const [alertMessage, setAlertMessage] = React.useState("");
@@ -54,8 +54,7 @@ export default function EventView(props) {
                         alt="evento"
                         width="100%"
                         height="140"
-                        // sx={{border : 1 }}
-                        src={SupimpaLogo}
+                        src={thumb === "" ? SupimpaLogo : thumb}
                     />
                     <div className='eventCardInfo'>
                         <div className='eventCardInfoBreak'>

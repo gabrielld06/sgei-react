@@ -6,7 +6,6 @@ import axios from "axios"
 import mongoose from 'mongoose'
 
 export default function NewEventController() {
-    // name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate
     const [userInfos, setUserInfos] = React.useState();
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -17,6 +16,7 @@ export default function NewEventController() {
     }, [])
 
     const [eventValues, setEventValues] = useState({
+        thumb: "",
         name: "",
         creator: "",
         description: "",
@@ -35,7 +35,6 @@ export default function NewEventController() {
         )
     }
 
-    //TODO: CHANGE TO FORBIDDEN
     if (!userInfos || userInfos.userType !== 'criadorDeEvento') {
         navigate("/")
     }
@@ -59,11 +58,10 @@ export default function NewEventController() {
     }
 
     const handleSubmit = async (showAlert) => {
-        var { name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventValues;
+        var { thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventValues;
         ticketsAvailable = parseInt(ticketsAvailable);
         ticketPrice = parseFloat(ticketPrice);
         creator = mongoose.Types.ObjectId(userInfos._id);
-        const thumb = '';
         await axios.post(
             "http://127.0.0.1:5000/api/events/newEvent",
             { thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate }

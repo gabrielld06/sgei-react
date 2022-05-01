@@ -7,6 +7,5 @@ router.route('/').post(registerUser);
 router.post("/login", authUser);
 router.post("/getUserInfos", getUserInfos)
 router.post("/updateUser", updateUser);
-// router.post('/api/users', registerUser);
 
 export default router;

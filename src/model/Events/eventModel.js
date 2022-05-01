@@ -43,6 +43,7 @@ const eventSchema = mongoose.Schema({
     },
     thumb: {
         type: 'string',
+        required: true,
     },
 },
     {

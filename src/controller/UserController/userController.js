@@ -1,4 +1,3 @@
-// const { ErrorRounded } = require('@mui/icons-material');
 import mongoose from 'mongoose';
 import asyncHandler from 'express-async-handler';
 import User from '../../model/UserMoldels/userMoldels.js'
@@ -6,7 +5,6 @@ import generateToken from '../../../server/utils/GenerateToken/index.js'
 const registerUser = asyncHandler(async (req, res) => {
     const { username, userType, password, phone, address, city, email, cpf_cnpj } = req.body;
 
-    // feipa depois arruma
     const usernameExist = await User.findOne({ username });
     if (usernameExist) {
         res.status(400);

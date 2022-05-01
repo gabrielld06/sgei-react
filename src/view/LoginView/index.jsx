@@ -27,7 +27,6 @@ export default function LoginView(props) {
 
     const handleShowAlert = (message) => {
         setLoginStatus(message);
-        console.log(message);
         setShowAlert(true)
     }
     const handleAlertClose = (event, reason) => {

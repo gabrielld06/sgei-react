@@ -26,7 +26,6 @@ export default function EditEventController() {
           axios.post('http://127.0.0.1:5000/api/events/getEventByName',
             { eventName }).then((response) => {
               const [eventData] = response.data;
-              console.log(eventData);
               setEventInfo(eventData);
               setLoading(false);
             }, (response) => {

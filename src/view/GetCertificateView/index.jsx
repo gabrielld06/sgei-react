@@ -36,7 +36,7 @@ export default function GetCertificateView(props) {
         );
     }
 
-    const { name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable } = eventInfo;
+    const {thumb, name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable } = eventInfo;
 
     const sDate = new Date(startDate);
     const fDate = new Date(finishDate);
@@ -50,7 +50,7 @@ export default function GetCertificateView(props) {
                     alt="evento"
                     width="100%"
                     height="140"
-                    src={SupimpaLogo}
+                    src={thumb === "" ? SupimpaLogo : thumb}
                 />
                 <div className='eventCardInfo'>
                     <div className='eventCardInfoBreak'>
@@ -69,10 +69,6 @@ export default function GetCertificateView(props) {
                         <p className='eventInfo'>Fim: {
                             ("0" + fDate.getUTCDate()).slice(-2) + "/" + ("0" + (fDate.getUTCMonth() + 1)).slice(-2) + "/" + fDate.getUTCFullYear()
                         }</p>
-                    </div>
-                    <div className='eventCardInfoBreak'>
-                        <p className='eventInfo'>Valor do ingresso: R${ticketPrice.toFixed(2)}</p>
-                        <p className='eventInfo'>Ingressos disponiveis: {ticketsAvailable}</p>
                     </div>
                     <Button variant="contained" sx={{ m: 2 }} onClick={() => { handleGetCertificateClick(handleShowAlert); }} >Gerar certificado</Button>
                 </div>

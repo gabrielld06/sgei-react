@@ -7,7 +7,7 @@ import Header from '../../components/Header'
 import './styles.css'
 
 export default function MyPresentationView(props) {
-  const { myPresentationList, handleChangeField, handleSearch, filter } = props;
+  const { myPresentationList, handleChangeField, filter } = props;
   const matches = useMediaQuery('(min-width:768px)');
  
   return (
@@ -19,11 +19,10 @@ export default function MyPresentationView(props) {
             id="searchField"
             label="Busca"
             onChange={(e) => { handleChangeField(e) }}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <SearchIcon onClick={handleSearch} />
+                  <SearchIcon/>
                 </InputAdornment>
               ),
             }}
@@ -42,7 +41,7 @@ export default function MyPresentationView(props) {
                 
             {myPresentationList.filter(e => (filter === "" ? e : e.name.includes(filter))).map((item) => (
               <Card key={`${item.name}`} sx={{ minWidth: 345 }}>
-                <Link to={`/${item.name}`}>
+                <Link to={`/${item.event.name}/${item.name}`}>
                   <CardMedia
                     component="img"
                     alt="evento"
@@ -59,9 +58,9 @@ export default function MyPresentationView(props) {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                    {console.log(item.event)}
-                  <Button component={Link} to={`/${item.event[0].name}/${item.name}`} size="small">Ver palestra</Button>
-                  <Button component={Link} to={`/${item.event[0].name}/${item.name}/edit_presentation`} size="small">Editar palestra</Button>
+                  <Button component={Link} to={`/${item.event.name}/${item.name}`} size="small">Ver palestra</Button>
+                  <Button component={Link} to={`/${item.event.name}/${item.name}/edit_presentation`} size="small">Editar palestra</Button>
+                  <Button component={Link} to={`/${item.event.name}/${item.name}/presentation_report`} size="small">Gerar relatório</Button>
                 </CardActions>
               </Card>
             ))}

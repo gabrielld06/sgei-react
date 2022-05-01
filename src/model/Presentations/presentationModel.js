@@ -36,6 +36,10 @@ const presentationSchema = mongoose.Schema({
         type: 'ObjectId',
         required: true,
     },
+    thumb: {
+        type: 'string',
+        required: true,
+    },
 },
     {
         timestamps: true,

@@ -52,7 +52,7 @@ export default function HomeView(props) {
                     component="img"
                     alt="evento"
                     height="140"
-                    src={SupimpaLogo}
+                    src={item.thumb === "" ? SupimpaLogo : item.thumb}
                   />
                 </Link>
                 <CardContent>

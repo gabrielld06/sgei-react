@@ -33,7 +33,6 @@ export default function SignUpView(props) {
 
     const handleShowAlert = (message) => {
         setSignUpStatus(message);
-        console.log(message);
         setShowAlert(true)
     }
     const handleAlertClose = (event, reason) => {

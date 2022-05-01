@@ -5,7 +5,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header'
 import SupimpaLogo from '../../assets/supimpa.png'
-// import { useNavigate } from "react-router-dom";
 import './styles.css'
 
 export default function EventView(props) {
@@ -34,7 +33,7 @@ export default function EventView(props) {
       </div>
     )
   }
-  const { name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable, presentationList } = event;
+  const {thumb, name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable, presentationList } = event;
 
   const sDate = new Date(startDate);
   const fDate = new Date(finishDate);
@@ -48,7 +47,7 @@ export default function EventView(props) {
             alt="evento"
             width="100%"
             height="140"
-            src={SupimpaLogo}
+            src={thumb === "" ? SupimpaLogo : thumb}
           />
           <div className='eventCardInfo'>
             <div className='eventCardInfoBreak'>
@@ -104,7 +103,7 @@ export default function EventView(props) {
                     component="img"
                     alt="evento"
                     height="140"
-                    src={SupimpaLogo}
+                    src={item.thumb === "" ? SupimpaLogo : item.thumb}
                   />
                 </Link>
                 <CardContent>

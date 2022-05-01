@@ -3,7 +3,6 @@ import SignUpView from '../../view/SignUpView'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { getUserInfos } from '../userInfosController';
-// TODO: navega
 
 export default function SignUpController() {
     const [userInfos, setUserInfos] = React.useState();
@@ -13,7 +12,6 @@ export default function SignUpController() {
 
     }, [userInfos])
     if (userInfos) {
-        console.log(userInfos);
         navigate("/")
     }
     const [userValues, setUserValues] = React.useState({
@@ -33,14 +31,13 @@ export default function SignUpController() {
         const type = ['espectador', 'criadorDeEvento', 'apresentador'];
         const userType = type[accountType];
         if(passVer !== password) {
-            console.log("senha diferente");
+            showAlert(400)
         } else {
                 await axios.post(
                 "http://127.0.0.1:5000/api/users",
                 { username, userType, password, phone, address, city, email, cpf_cnpj }
                 ).then(response => {
                     showAlert(response.status);
-                    //navigate("/login");
                 }, err => {
                     showAlert(err.response.status)
                 });
@@ -55,7 +52,6 @@ export default function SignUpController() {
         ...userValues,
         ...updatedValue
         }));
-        console.log(userValues);
     }
 
     const handleChangeUser = (user) =>{
@@ -63,7 +59,6 @@ export default function SignUpController() {
         ...userValues,
         accountType: user,
         }));
-        console.log(userValues);
     }
 
     // Show/hide password handler

@@ -36,7 +36,7 @@ export default function EventReportView(props) {
     );
   }
 
-  const { name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable, ticketsSold, presentationList } = eventInfo;
+  const {thumb, name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable, ticketsSold, presentationList } = eventInfo;
 
   const sDate = new Date(startDate);
   const fDate = new Date(finishDate);
@@ -50,7 +50,7 @@ export default function EventReportView(props) {
           alt="evento"
           width="100%"
           height="140"
-          src={SupimpaLogo}
+          src={thumb === "" ? SupimpaLogo : thumb}
         />
         <div className='eventCardInfo'>
           <div className='eventCardInfoBreak'>

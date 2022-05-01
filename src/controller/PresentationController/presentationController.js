@@ -2,30 +2,11 @@ import asyncHandler from 'express-async-handler';
 import Presentation from '../../model/Presentations/presentationModel.js'
 import mongoose from 'mongoose';
 
-const getPresentations = asyncHandler(async (req, res) => {
-    const { filterId, filterName, filterEvent } = req.body;
-    const eventId = mongoose.Types.ObjectId(filterEvent);
-    var presentations = await Presentation.find({});
-    if (filterId && filterId !== '') {
-        presentations = presentations.filter(e => e._id.includes(filterId));
-    }
-    if (filterName && filterName !== '') {
-        presentations = presentations.filter(e => e.name.includes(filterName));
-    }
-    console.log(filterEvent);
-    if (filterEvent && filterEvent !== '') {
-    console.log(eventId);
-        presentations = presentations.filter(e => e.event === eventId);
-    }
-    res.json(presentations);
-});
-
 const getPresentationsByEvent = asyncHandler(async (req, res) => {
     const { eventId } = req.body;
 
     const id = mongoose.Types.ObjectId(eventId);
-    const userPresentations = await Presentation.find({"event" : id});
-    console.log(userPresentations);
+    const userPresentations = await Presentation.find({ "event": id });
     res.json(userPresentations);
 });
 
@@ -34,7 +15,16 @@ const getUserPresentationByNameAndEvent = asyncHandler(async (req, res) => {
 
     const userId = mongoose.Types.ObjectId(user);
     const eventId = mongoose.Types.ObjectId(event);
-    const presentation = await Presentation.find({"presenter" : userId, "name" : presentationName, "event" : eventId});
+    const presentation = await Presentation.find({ "presenter": userId, "name": presentationName, "event": eventId });
+
+    res.json(presentation);
+})
+
+const getPresentationByNameAndEvent = asyncHandler(async (req, res) => {
+    const { event, presentationName } = req.body;
+
+    const eventId = mongoose.Types.ObjectId(event);
+    const presentation = await Presentation.find({ "name": presentationName, "event": eventId });
 
     res.json(presentation);
 })
@@ -56,6 +46,9 @@ const getUserPresentations = asyncHandler(async (req, res) => {
                 "foreignField": "_id",
                 "as": "event"
             }
+        },
+        {
+            "$unwind": "$event"
         }]);
 
     res.json(userPresentations);
@@ -130,4 +123,4 @@ const updatePresentation = asyncHandler(async (req, res) => {
     }).clone().catch(function (err) { console.log(err) });
 });
 
-export { getPresentations, newPresentation, updatePresentation, getPresentationsByEvent, getUserPresentations, getUserPresentationByNameAndEvent };
+export { newPresentation, updatePresentation, getPresentationsByEvent, getUserPresentations, getUserPresentationByNameAndEvent, getPresentationByNameAndEvent };

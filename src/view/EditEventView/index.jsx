@@ -13,6 +13,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import Snackbar from '@mui/material/Snackbar';
+import DialogURL from '../../components/DialogURL';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -24,7 +25,13 @@ export default function EditEventView(props) {
     const [eventStatus, setEventStatus] = React.useState(false);
     const [dateStart, setDateStart] = React.useState(eventInfo.startDate);
     const [dateEnd, setDateEnd] = React.useState(eventInfo.endDate);
-    
+    const [imageURL, setImageURL] = React.useState(SupimpaLogo);
+
+    const handleChangeImage = (url) => {
+        handleChangeFieldValue(url, "thumb");
+        setImageURL(url);
+    }
+
     const handleShowAlert = (message) => {
         setEventStatus(message);
         setShowAlert(true)
@@ -52,9 +59,9 @@ export default function EditEventView(props) {
                         <CardMedia
                             component="img"
                             sx={{ maxHeight: '250px' }}
-                            image={SupimpaLogo}
-                            alt="green iguana"
+                            image={eventInfo.thumb === "" ? SupimpaLogo : eventInfo.thumb}
                         />
+                        <DialogURL handleChangeImage={handleChangeImage}/>
                         <Grid item xs container direction="row" justifyContent="space-evenly">
                             <TextField id="name" defaultValue={eventInfo.name} label="Nome do evento" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "name") }} />
                             <TextField id="description" defaultValue={eventInfo.description} label="Descrição do evento" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "description") }} />

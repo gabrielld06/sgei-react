@@ -51,7 +51,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// encripta a senha toda vez que for atualizada no modelo antes de enviar para o bd
+// encripta a senha toda vez que for criado no modelo antes de enviar para o bd
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
         next();
@@ -63,7 +63,6 @@ userSchema.pre("save", async function (next) {
 userSchema.pre('findOneAndUpdate', async function (next) {
     let data = this.getUpdate();
     if (!data.password) {
-        console.log(data.password);
         next();
     } else {
         const salt = await bcrypt.genSalt();

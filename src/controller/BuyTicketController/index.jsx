@@ -17,7 +17,6 @@ export default function EventController() {
       await axios.post('http://127.0.0.1:5000/api/events/getEventPresentationsByName',
         { eventName }).then((response) => {
           const [eventData] = response.data;
-          console.log(eventData);
           setEventInfo(eventData);
         }, (response) => {
           console.log(response);
@@ -64,8 +63,6 @@ export default function EventController() {
     const userId = getUserId();
     await axios.post('http://127.0.0.1:5000/api/tickets',
       { eventId, userId, ticketCount }).then(async (response) => {
-        // const data = response.data;
-
         const newTicketsAvailable = ticketsAvailable - ticketCount;
         handleChangeTickets(newTicketsAvailable, ticketCount);
 
@@ -74,7 +71,7 @@ export default function EventController() {
         ticketsSold += parseInt(ticketCount);
         await axios.post('http://127.0.0.1:5000/api/events/updateEvent',
           { _id, thumb, name, creator, description, ticketsAvailable, ticketsSold, ticketPrice, location, startDate, finishDate }).then(() => {
-            showAlert(201, `Sucesso!\nVocê comprou ${ticketCount} ingressos no valor de R$${ticketCount * ticketPrice}`); // Resposta 200 = Sucesso (retorna até )
+            showAlert(201, `Sucesso!\nVocê comprou ${ticketCount} ingressos no valor de R$${ticketCount * ticketPrice}`); // Resposta 200 = Sucesso
           }, (response) => {
             showAlert(0, "Algo deu errado :(");
           });

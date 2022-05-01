@@ -12,10 +12,6 @@ export default function MyEventsController() {
     setFilter(event.target.value);
   }
 
-  // TODO: PODE TIRAR
-  const handleSearch = (event) => {
-  }
-
   React.useEffect(() => {
     const userId = getUserId();
 
@@ -31,7 +27,6 @@ export default function MyEventsController() {
     <MyPresentationsView
       myPresentationList={myPresentationList}
       handleChangeField={handleChangeField}
-      handleSearch={handleSearch}
       filter={filter} />
   )
 }

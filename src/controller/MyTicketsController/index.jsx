@@ -12,17 +12,11 @@ export default function MyTicketsController() {
         setFilter(event.target.value);
     }
 
-    // TODO:PODE TIRAR
-    const handleSearch = (event) => {
-
-    }
-
     React.useEffect(() => {
         const userId = getUserId();
 
         axios.post('http://127.0.0.1:5000/api/tickets/getUserTickets',
             { userId }).then((response) => {
-                console.log(response.data);
                 setMyTicketList(response.data);
             }, (response) => {
                 console.log(response);
@@ -33,7 +27,6 @@ export default function MyTicketsController() {
         <MyTicketsView
             myTicketList={myTicketList}
             handleChangeField={handleChangeField}
-            handleSearch={handleSearch}
             filter={filter} />
     )
 }

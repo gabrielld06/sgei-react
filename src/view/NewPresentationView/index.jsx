@@ -7,6 +7,7 @@ import SupimpaLogo from '../../assets/supimpa.png'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
+import DialogURL from '../../components/DialogURL';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -17,6 +18,12 @@ export default function NewPresentationView(props) {
     const [showAlert, setShowAlert] = React.useState(false);
     const [presentationStatus, setPresentationStatus] = React.useState(false);
     const [date, setDate] = React.useState(startDate);
+    const [imageURL, setImageURL] = React.useState(SupimpaLogo);
+
+    const handleChangeImage = (url) => {
+        handleChangeFieldValue(url, "thumb");
+        setImageURL(url);
+    }
 
     const handleShowAlert = (message) => {
         setPresentationStatus(message);
@@ -40,9 +47,9 @@ export default function NewPresentationView(props) {
                         <CardMedia
                             component="img"
                             sx={{ maxHeight: '250px' }}
-                            image={SupimpaLogo}
-                            alt="green iguana"
+                            image={imageURL}
                         />
+                        <DialogURL handleChangeImage={handleChangeImage}/>
                         <Grid item xs container direction="row" justifyContent="space-evenly">
                             <TextField id="name" label="Nome da palestra" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "name") }} />
                             <TextField id="theme" label="Tema da palestra" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "theme") }} />

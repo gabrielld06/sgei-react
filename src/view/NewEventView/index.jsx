@@ -8,11 +8,12 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import CardMedia from '@mui/material/CardMedia';
-import SupimpaLogo from '../../assets/supimpa.png'
+import DefaultImage from '../../assets/supimpa.png'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import Snackbar from '@mui/material/Snackbar';
+import DialogURL from '../../components/DialogURL';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -24,7 +25,13 @@ export default function NewEventView(props) {
     const [eventStatus, setEventStatus] = React.useState(false);
     const [dateStart, setDateStart] = React.useState(startDate);
     const [dateEnd, setDateEnd] = React.useState(endDate);
-    
+    const [imageURL, setImageURL] = React.useState(DefaultImage);
+
+    const handleChangeImage = (url) => {
+        handleChangeFieldValue(url, "thumb");
+        setImageURL(url);
+    }
+
     const handleShowAlert = (message) => {
         setEventStatus(message);
         setShowAlert(true)
@@ -37,7 +44,7 @@ export default function NewEventView(props) {
 
         setShowAlert(false);
     };
-    
+
     return (
         <div>
             <Header />
@@ -47,9 +54,9 @@ export default function NewEventView(props) {
                         <CardMedia
                             component="img"
                             sx={{ maxHeight: '250px' }}
-                            image={SupimpaLogo}
-                            alt="green iguana"
+                            image={imageURL}
                         />
+                        <DialogURL handleChangeImage={handleChangeImage}/>
                         <Grid item xs container direction="row" justifyContent="space-evenly">
                             <TextField id="name" label="Nome do evento" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "name") }} />
                             <TextField id="description" label="Descrição do evento" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "description") }} />
@@ -63,13 +70,13 @@ export default function NewEventView(props) {
                                 <DateTimePicker
                                     label="Data e hora de início"
                                     value={dateStart}
-                                    onChange={(e) => {setDateStart(e); handleChangeFieldValue(dateStart, "startDate");}}
+                                    onChange={(e) => { setDateStart(e); handleChangeFieldValue(dateStart, "startDate"); }}
                                     renderInput={(params) => <TextField sx={userFieldStyle} {...params} />}
                                 />
                                 <DateTimePicker
                                     label="Data e hora de término"
                                     value={dateEnd}
-                                    onChange={(e) => {setDateEnd(e); handleChangeFieldValue(dateEnd, "finishDate");}}
+                                    onChange={(e) => { setDateEnd(e); handleChangeFieldValue(dateEnd, "finishDate"); }}
                                     renderInput={(params) => <TextField sx={userFieldStyle} {...params} />}
                                 />
                             </LocalizationProvider>

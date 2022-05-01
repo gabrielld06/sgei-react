@@ -5,7 +5,6 @@ import axios from "axios"
 import { getUserInfos } from '../userInfosController';
 
 export default function EditPresentationController() {
-    // name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate
     const [userInfos, setUserInfos] = React.useState();
     const [presentationInfo, setPresentationInfo] = useState();
     const [loading, setLoading] = useState(true);
@@ -22,20 +21,28 @@ export default function EditPresentationController() {
 
     const match = useMatch('/:event/:presentation/edit_presentation');
     React.useEffect(() => {
-        function fetchData() {
-          const filterName = match.params.presentation;
-          axios.post('http://127.0.0.1:5000/api/presentations',
-            { filterName }).then((response) => {
-              const [presentationData] = response.data;
-              console.log(presentationData);
-              setPresentationInfo(presentationData);
-              setLoading(false);
-            }, (response) => {
-              console.log(response);
-            });
+        async function fetchData() {
+            const eventName = match.params.event;
+            await axios.post('http://127.0.0.1:5000/api/events/getEventByName',
+                { eventName }).then(async (response) => {
+                    const [eventData] = response.data;
+                    const event = eventData._id;
+                    const presentationName = match.params.presentation;    
+                    await axios.post('http://127.0.0.1:5000/api/presentations/getPresentationByNameAndEvent',
+                        { event, presentationName }).then((response) => {
+                          const [presentationData] = response.data;
+
+                          setPresentationInfo(presentationData);
+                        }, (response) => {
+                            console.log(response);
+                        });
+                }, (response) => {
+                    console.log(response);
+                });
+            setLoading(false);
         };
         fetchData();
-      }, [])
+    }, [])
 
     const handleChangeField = (event, field) => {
         let updatedValue = {};
@@ -59,8 +66,6 @@ export default function EditPresentationController() {
         var { _id, thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event } = presentationInfo;
         seatsAvailable = parseInt(seatsAvailable);
         duration = parseInt(duration);
-
-        console.log(presentationInfo);
         await axios.post(
             "http://127.0.0.1:5000/api/presentations/updatePresentation",
             { _id, thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event }

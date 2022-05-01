@@ -36,7 +36,7 @@ export default function PresentationReportView(props) {
     );
   }
 
-  const { name, seatsAvailable, theme, location, date, duration } = presentationInfo;
+  const {thumb, name, seatsAvailable, theme, location, date, duration } = presentationInfo;
   const sDate = new Date(date);
 
   return (
@@ -48,7 +48,7 @@ export default function PresentationReportView(props) {
           alt="evento"
           width="100%"
           height="140"
-          src={SupimpaLogo}
+          src={thumb === "" ? SupimpaLogo : thumb}
         />
         <div className='presentationCardInfo'>
           <div className='presentationCardInfoBreak'>

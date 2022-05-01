@@ -14,7 +14,6 @@ export default function UserProfileController() {
             const userId = getUserId();
             await axios.post('http://127.0.0.1:5000/api/users/getUserInfos',
                 { userId }).then((response) => {
-                    console.log(response.data);
                     setUserInfos(response.data);
                 }, (response) => {
                     console.log(response);
@@ -35,7 +34,6 @@ export default function UserProfileController() {
             ...evtValues,
             ...updatedValue
         }));
-        console.log(userInfos);
     }
 
     const handleChangeFieldValue = (newValue, field) => {
@@ -45,7 +43,6 @@ export default function UserProfileController() {
             ...evtValues,
             ...updatedValue
         }));
-        console.log(userInfos);
     }
 
     const handleSubmit = async (showAlert) => {

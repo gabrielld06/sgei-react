@@ -7,7 +7,6 @@ import { getUserInfos } from '../userInfosController'
 import mongoose from 'mongoose'
 
 export default function NewPresentationController() {
-    // name, seatsAvailable, theme, location, date, duration, presenter, event
     const [eventInfo, setEventInfo] = useState();
     const [userInfos, setUserInfos] = useState();
     const [loading, setLoading] = useState(true);
@@ -47,9 +46,8 @@ export default function NewPresentationController() {
         )
     }
     
-    //TODO: CHANGE TO FORBIDDEN
-    if (!userInfos || userInfos.userType !== 'palestrante') {
-        // navigate("/")
+    if (!userInfos || userInfos.userType !== 'apresentador') {
+        navigate("/");
     }
 
     if (!eventInfo) {
@@ -77,12 +75,11 @@ export default function NewPresentationController() {
     }
 
     const handleSubmit = async (showAlert) => {
-        var { name, participants, seatsAvailable, theme, location, date, duration, presenter, event } = presentationValues;
+        var { thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event } = presentationValues;
         seatsAvailable = parseInt(seatsAvailable);
         duration = parseInt(duration);
         presenter = mongoose.Types.ObjectId(userInfos._id);
         event = mongoose.Types.ObjectId(eventInfo._id);
-        const thumb = '';
         try {
             await axios.post(
                 "http://127.0.0.1:5000/api/presentations/newPresentation",
@@ -92,7 +89,6 @@ export default function NewPresentationController() {
             showAlert(201);
         } catch (err) {
             console.log(err);
-            
             showAlert(400);
         }
     };

@@ -12,7 +12,6 @@ export default function LoginController() {
 
     }, [userInfos])
     if (userInfos) {
-        console.log(userInfos);
         navigate("/")
     }
     const [values, setValues] = React.useState({
@@ -39,7 +38,6 @@ export default function LoginController() {
             ...userValues,
             ...updatedValue
         }));
-        console.log(userValues);
     }
 
     const handleSubmit = async (handleShowAlert) => {

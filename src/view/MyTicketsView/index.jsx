@@ -7,7 +7,7 @@ import Header from '../../components/Header'
 import './styles.css'
 
 export default function MyTicketsView(props) {
-  const { myTicketList, handleChangeField, handleSearch, filter } = props;
+  const { myTicketList, handleChangeField, filter } = props;
   const matches = useMediaQuery('(min-width:768px)');
  
   return (
@@ -19,11 +19,10 @@ export default function MyTicketsView(props) {
             id="searchField"
             label="Busca"
             onChange={(e) => { handleChangeField(e) }}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <SearchIcon onClick={handleSearch} />
+                  <SearchIcon />
                 </InputAdornment>
               ),
             }}
@@ -39,7 +38,6 @@ export default function MyTicketsView(props) {
             rowGap={2}
             columnGap={2}
             alignItems="center">
-              {console.log(filter)}
             {myTicketList.filter(e => (filter === "" ? e : e.eventInfo.name.includes(filter))).map((item) => (
               <Card key={`${item._id}`} sx={{ minWidth: 345 }}>
                 <Link to={`/${item.eventInfo.name}`}>
