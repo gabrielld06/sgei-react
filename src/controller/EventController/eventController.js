@@ -73,14 +73,13 @@ const getUserEvents = asyncHandler(async (req, res) => {
 })
 
 const newEvent = asyncHandler(async (req, res) => {
-    const { thumb, name, creator, description, participants, ticketsAvailable, ticketPrice, location, startDate, finishDate } = req.body;
+    const { thumb, name, creator, description, ticketsAvailable, ticketPrice, location, startDate, finishDate } = req.body;
     const ticketsSold = 0;
     const newEvent = await Event.create({
         thumb,
         name,
         creator,
         description,
-        participants,
         ticketsAvailable,
         ticketsSold,
         ticketPrice,
@@ -95,7 +94,6 @@ const newEvent = asyncHandler(async (req, res) => {
             name: newEvent.name,
             creator: newEvent.creator,
             description: newEvent.description,
-            participants: newEvent.participants,
             ticketsAvailable: newEvent.ticketsAvailable,
             ticketPrice: newEvent.ticketPrice,
             location: newEvent.location,

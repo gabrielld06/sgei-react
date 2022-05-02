@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import FormHelperText from '@mui/material/FormHelperText';
 import './styles.css';
 import { Link } from 'react-router-dom';
 import Supimpa from '../../assets/supimpa.png'
@@ -55,7 +54,6 @@ export default function LoginView(props) {
                                     </IconButton>
                                 </InputAdornment>)
                         }} onChange={(e) => { handleChangeField(e, "password") }} />
-                        <Link to={`/forgetPassword`}> <FormHelperText sx={{ m: -1, width: 150, paddingLeft: "95%" }}>Esqueceu a senha?</FormHelperText></Link>
                         <Button variant="contained" sx={{ width: '40%', m: 3 }} onClick={() => { handleSubmit(handleShowAlert); }} >Entrar</Button>
                         <Divider sx={{ width: '95%' }} light style={{ color: 'gray' }}>ou</Divider>
                         <Button variant="outlined" sx={{ width: '40%', m: 3 }} component={Link} to="/signup" >Cadastre-se</Button>

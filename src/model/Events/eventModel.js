@@ -13,10 +13,6 @@ const eventSchema = mongoose.Schema({
         type: 'string',
         required: true,
     },
-    participants: {
-        type: [],
-        required: true,
-    },
     ticketsAvailable: {
         type: 'number',
         required: true,

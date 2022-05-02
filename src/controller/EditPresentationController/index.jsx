@@ -63,12 +63,19 @@ export default function EditPresentationController() {
     }
 
     const handleSubmit = async (showAlert) => {
-        var { _id, thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event } = presentationInfo;
+        var { _id, thumb, name, seatsAvailable, theme, location, date, duration, presenter, event } = presentationInfo;
+
+        const atualDate = new Date();
+        if(date < atualDate ) {
+            showAlert(400)
+            return;
+        }
+
         seatsAvailable = parseInt(seatsAvailable);
         duration = parseInt(duration);
         await axios.post(
             "http://127.0.0.1:5000/api/presentations/updatePresentation",
-            { _id, thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event }
+            { _id, thumb, name, seatsAvailable, theme, location, date, duration, presenter, event }
         ).then(response => {
             showAlert(response.status);
         }, err => {

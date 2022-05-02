@@ -9,7 +9,8 @@ import './styles.css'
 export default function MyPresentationView(props) {
   const { myPresentationList, handleChangeField, filter } = props;
   const matches = useMediaQuery('(min-width:768px)');
- 
+  
+  const maxLength = 69;
   return (
     <div>
       <Header></Header>
@@ -39,8 +40,8 @@ export default function MyPresentationView(props) {
             columnGap={2}
             alignItems="center">
                 
-            {myPresentationList.filter(e => (filter === "" ? e : e.name.includes(filter))).map((item) => (
-              <Card key={`${item.name}`} sx={{ minWidth: 345 }}>
+            {myPresentationList.filter(e => (filter === "" ? e : e.name.toLowerCase().includes(filter.toLowerCase()))).map((item) => (
+              <Card key={`${item.name}`} sx={{ minWidth: 430, minHeight: 250, maxHeight: 300, maxWidth: 430 }}>
                 <Link to={`/${item.event.name}/${item.name}`}>
                   <CardMedia
                     component="img"
@@ -54,7 +55,7 @@ export default function MyPresentationView(props) {
                     {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.theme}
+                    {item.theme.length < 72 ? item.theme : (item.theme.substring(0, maxLength) + "...")}
                   </Typography>
                 </CardContent>
                 <CardActions>

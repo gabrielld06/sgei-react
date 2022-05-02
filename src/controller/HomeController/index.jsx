@@ -6,21 +6,8 @@ export default function HomeController() {
   const [eventList, setEventList] = React.useState([]);
   const [filter, setFilter] = React.useState("");
 
-  const getEvents = () => {
-    axios.post('http://127.0.0.1:5000/api/events',
-      { filter }).then((response) => {
-        setEventList(response.data);
-      }, (response) => {
-        console.log(response);
-      });
-  }
-
   const handleChangeField = (event) => {
     setFilter(event.target.value);
-  }
-
-  const handleSearch = (event) => {
-    getEvents();
   }
 
   React.useEffect(() => {
@@ -36,6 +23,6 @@ export default function HomeController() {
     <HomeView
       eventList={eventList}
       handleChangeField={handleChangeField}
-      handleSearch={handleSearch} />
+      filter={filter} />
   )
 }

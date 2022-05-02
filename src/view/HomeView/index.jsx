@@ -8,9 +8,11 @@ import Header from '../../components/Header'
 import './styles.css'
 
 export default function HomeView(props) {
-  const { eventList, handleChangeField, handleSearch } = props;
+  const { eventList, handleChangeField, filter } = props;
   const matches = useMediaQuery('(min-width:768px)');
   const [userInfo, setUserInfo] = React.useState();
+
+  const maxLength = 69;
   
   React.useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfos")));
@@ -25,11 +27,10 @@ export default function HomeView(props) {
             id="searchField"
             label="Busca"
             onChange={(e) => { handleChangeField(e) }}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <SearchIcon onClick={handleSearch} />
+                  <SearchIcon />
                 </InputAdornment>
               ),
             }}
@@ -45,8 +46,8 @@ export default function HomeView(props) {
             rowGap={2}
             columnGap={2}
             alignItems="center">
-            {eventList.map((item) => (
-              <Card key={`${item.name}`} sx={{ minWidth: 345 }}>
+            {eventList.filter(e => (filter === "" ? e : e.name.toLowerCase().includes(filter.toLowerCase()))).map((item) => (
+              <Card key={`${item.name}`} sx={{ minWidth: 430, minHeight: 250, maxHeight: 300, maxWidth: 430 }}>
                 <Link to={`/${item.name}`}>
                   <CardMedia
                     component="img"
@@ -60,7 +61,7 @@ export default function HomeView(props) {
                     {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.description}
+                    {item.description.length < 72 ? item.description : (item.description.substring(0, maxLength) + "...")}
                   </Typography>
                 </CardContent>
                 <CardActions>

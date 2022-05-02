@@ -5,9 +5,6 @@ const presentationSchema = mongoose.Schema({
         type: 'string',
         required: true,
     },
-    participants: {
-        type: [],
-    },
     seatsAvailable: {
         type: 'number',
         required: true,

@@ -12,7 +12,6 @@ export default function NewPresentationController() {
     const [loading, setLoading] = useState(true);
     const [presentationValues, setPresentationValues] = useState({
         name: "",
-        participants: 'a',
         seatsAvailable: 0,
         theme: "",
         location: "",
@@ -75,7 +74,14 @@ export default function NewPresentationController() {
     }
 
     const handleSubmit = async (showAlert) => {
-        var { thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event } = presentationValues;
+        var { thumb, name, seatsAvailable, theme, location, date, duration, presenter, event } = presentationValues;
+
+        const atualDate = new Date();
+        if(date < atualDate ) {
+            showAlert(400)
+            return;
+        }
+
         seatsAvailable = parseInt(seatsAvailable);
         duration = parseInt(duration);
         presenter = mongoose.Types.ObjectId(userInfos._id);
@@ -83,7 +89,7 @@ export default function NewPresentationController() {
         try {
             await axios.post(
                 "http://127.0.0.1:5000/api/presentations/newPresentation",
-                { thumb, name, participants, seatsAvailable, theme, location, date, duration, presenter, event }
+                { thumb, name, seatsAvailable, theme, location, date, duration, presenter, event }
             );
 
             showAlert(201);

@@ -11,7 +11,7 @@ export default function EventView(props) {
   const matches = useMediaQuery('(min-width:768px)');
   const { event, loading, filter, handleChangeField } = props;
   const [userInfo, setUserInfo] = React.useState();
-  
+
   React.useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfos")));
   }, []);
@@ -33,8 +33,9 @@ export default function EventView(props) {
       </div>
     )
   }
-  const {thumb, name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable, presentationList } = event;
+  const { thumb, name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable, presentationList } = event;
 
+  const maxLength = 69;
   const sDate = new Date(startDate);
   const fDate = new Date(finishDate);
   return (
@@ -96,9 +97,9 @@ export default function EventView(props) {
             rowGap={2}
             columnGap={2}
             alignItems="center">
-            {presentationList.filter(e => (filter === "" ? e : e.name.includes(filter))).map((item) => (
-              <Card key={`${item.name}`} sx={{ minWidth: 345 }}>
-                <Link to={`/${item.name}`}>
+            {presentationList.filter(e => (filter === "" ? e : e.name.toLowerCase().includes(filter.toLowerCase()))).map((item) => (
+              <Card key={`${item.name}`} sx={{ minWidth: 430, minHeight: 250, maxHeight: 300, maxWidth: 430 }}>
+                <Link to={`/${name}/${item.name}`}>
                   <CardMedia
                     component="img"
                     alt="evento"
@@ -111,7 +112,7 @@ export default function EventView(props) {
                     {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.theme}
+                    {item.theme.length < 72 ? item.theme : (item.theme.substring(0, maxLength) + "...")}
                   </Typography>
                 </CardContent>
                 <CardActions>

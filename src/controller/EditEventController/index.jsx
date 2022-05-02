@@ -54,13 +54,18 @@ export default function EditEventController() {
     }
 
     const handleSubmit = async (showAlert) => {
-        var { _id, thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventInfo;
+        var { _id, thumb, name, creator, description, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventInfo;
         ticketsAvailable = parseInt(ticketsAvailable);
         ticketPrice = parseFloat(ticketPrice);
     
+        if(startDate > finishDate) {
+            showAlert(400)
+            return;
+        }
+
         await axios.post(
             "http://127.0.0.1:5000/api/events/updateEvent",
-            { _id, thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate }
+            { _id, thumb, name, creator, description, ticketsAvailable, ticketPrice, location, startDate, finishDate }
         ).then(response => {
             showAlert(response.status);
         }, err => {

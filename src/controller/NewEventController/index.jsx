@@ -20,8 +20,6 @@ export default function NewEventController() {
         name: "",
         creator: "",
         description: "",
-        participants: [],
-        presentations: [],
         ticketsAvailable: "",
         ticketPrice: "",
         location: "",
@@ -58,13 +56,20 @@ export default function NewEventController() {
     }
 
     const handleSubmit = async (showAlert) => {
-        var { thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventValues;
+        var { thumb, name, creator, description, ticketsAvailable, ticketPrice, location, startDate, finishDate } = eventValues;
         ticketsAvailable = parseInt(ticketsAvailable);
         ticketPrice = parseFloat(ticketPrice);
         creator = mongoose.Types.ObjectId(userInfos._id);
+        
+        const atualDate = new Date();
+        if(startDate > finishDate || startDate < atualDate ) {
+            showAlert(400)
+            return;
+        }
+
         await axios.post(
             "http://127.0.0.1:5000/api/events/newEvent",
-            { thumb, name, creator, description, participants, presentations, ticketsAvailable, ticketPrice, location, startDate, finishDate }
+            { thumb, name, creator, description, ticketsAvailable, ticketPrice, location, startDate, finishDate }
         ).then(response => {
             showAlert(response.status);
         }, err => {

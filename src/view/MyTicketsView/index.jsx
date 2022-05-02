@@ -9,7 +9,8 @@ import './styles.css'
 export default function MyTicketsView(props) {
   const { myTicketList, handleChangeField, filter } = props;
   const matches = useMediaQuery('(min-width:768px)');
- 
+
+  const maxLength = 69;
   return (
     <div>
       <Header></Header>
@@ -38,8 +39,8 @@ export default function MyTicketsView(props) {
             rowGap={2}
             columnGap={2}
             alignItems="center">
-            {myTicketList.filter(e => (filter === "" ? e : e.eventInfo.name.includes(filter))).map((item) => (
-              <Card key={`${item._id}`} sx={{ minWidth: 345 }}>
+            {myTicketList.filter(e => (filter === "" ? e : e.eventInfo.name.toLowerCase().includes(filter.toLowerCase()))).map((item) => (
+              <Card key={`${item._id}`} sx={{ minWidth: 430, minHeight: 250, maxHeight: 300, maxWidth: 430 }}>
                 <Link to={`/${item.eventInfo.name}`}>
                   <CardMedia
                     component="img"
@@ -53,7 +54,7 @@ export default function MyTicketsView(props) {
                     {item.eventInfo.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.eventInfo.description}
+                    {item.eventInfo.description.length < 72 ? item.eventInfo.description : (item.eventInfo.description.substring(0, maxLength) + "...")}
                   </Typography>
                 </CardContent>
                 <CardActions>

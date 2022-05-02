@@ -67,7 +67,7 @@ export default function EditPresentationView(props) {
                         </Grid>
                         <Divider orientation="vertical" flexItem />
                         <Grid item xs container direction="column" >
-                            <TextField id="duration" defaultValue={presentationInfo.duration} label="Duração" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "duration") }} />
+                            <TextField id="duration" defaultValue={presentationInfo.duration} label="Duração (min)" variant="outlined" sx={userFieldStyle} onChange={(e) => { handleChangeField(e, "duration") }} />
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DateTimePicker
                                     label="Data e hora de início"

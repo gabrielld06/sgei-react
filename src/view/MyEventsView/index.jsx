@@ -9,7 +9,8 @@ import './styles.css'
 export default function MyEventsView(props) {
   const { myEventList, handleChangeField, filter } = props;
   const matches = useMediaQuery('(min-width:768px)');
- 
+
+  const maxLength = 69;
   return (
     <div>
       <Header></Header>
@@ -22,7 +23,7 @@ export default function MyEventsView(props) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <SearchIcon/>
+                  <SearchIcon />
                 </InputAdornment>
               ),
             }}
@@ -38,8 +39,8 @@ export default function MyEventsView(props) {
             rowGap={2}
             columnGap={2}
             alignItems="center">
-            {myEventList.filter(e => (filter === "" ? e : e.name.includes(filter))).map((item) => (
-              <Card key={`${item.name}`} sx={{ minWidth: 345 }}>
+            {myEventList.filter(e => (filter === "" ? e : e.name.toLowerCase().includes(filter.toLowerCase()))).map((item) => (
+              <Card key={`${item.name}`} sx={{ minWidth: 430, minHeight: 250, maxHeight: 300, maxWidth: 430 }}>
                 <Link to={`/${item.name}`}>
                   <CardMedia
                     component="img"
@@ -53,7 +54,7 @@ export default function MyEventsView(props) {
                     {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.description}
+                    {item.description.length < 72 ? item.description : (item.description.substring(0, maxLength) + "...")}
                   </Typography>
                 </CardContent>
                 <CardActions>
