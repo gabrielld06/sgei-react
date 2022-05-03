@@ -36,7 +36,7 @@ export default function GetCertificateView(props) {
         );
     }
 
-    const {thumb, name, description, location, startDate, finishDate, ticketPrice, ticketsAvailable } = eventInfo;
+    const {thumb, name, description, location, startDate, finishDate } = eventInfo;
 
     const sDate = new Date(startDate);
     const fDate = new Date(finishDate);

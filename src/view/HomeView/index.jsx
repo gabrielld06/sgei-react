@@ -66,7 +66,7 @@ export default function HomeView(props) {
                 </CardContent>
                 <CardActions>
                   <Button component={Link} to={`/${item.name}`} size="small">Ver evento</Button>
-                  <Button component={Link} to={`/${item.name}/sign_event`} size="small">Inscrever-se</Button>
+                  <Button component={Link} disabled={userInfo ? false : true}  to={`/${item.name}/sign_event`} size="small">Inscrever-se</Button>
                 </CardActions>
               </Card>
             ))}

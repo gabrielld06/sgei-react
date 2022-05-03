@@ -25,11 +25,9 @@ export default function EditEventView(props) {
     const [eventStatus, setEventStatus] = React.useState(false);
     const [dateStart, setDateStart] = React.useState(eventInfo.startDate);
     const [dateEnd, setDateEnd] = React.useState(eventInfo.endDate);
-    const [imageURL, setImageURL] = React.useState(SupimpaLogo);
 
     const handleChangeImage = (url) => {
         handleChangeFieldValue(url, "thumb");
-        setImageURL(url);
     }
 
     const handleShowAlert = (message) => {

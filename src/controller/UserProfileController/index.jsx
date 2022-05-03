@@ -1,5 +1,4 @@
 import React from 'react'
-import { useMatch } from 'react-router-dom'
 import axios from 'axios'
 
 import UserProfileView from '../../view/UserProfileView'

@@ -19,7 +19,7 @@ export default function EventView(props) {
     const [showAlert, setShowAlert] = React.useState(false);
     const [alertMessage, setAlertMessage] = React.useState("");
     const [eventStatus, setEventStatus] = React.useState(false);
-
+    
     const handleShowAlert = (response, message) => {
         setEventStatus(response);
         setAlertMessage(message);

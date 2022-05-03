@@ -3,12 +3,14 @@ import { useMatch } from 'react-router-dom'
 import axios from 'axios'
 import BuyTicketView from '../../view/BuyTicketView'
 import { getUserId } from '../userInfosController/index.jsx'
+import { useNavigate } from "react-router-dom";
 
 export default function EventController() {
   const [eventInfo, setEventInfo] = useState();
   const [loading, setLoading] = useState(true);
   const [ticketCount, setTicketCount] = useState(0);
-
+  const navigate = useNavigate();
+  const userId = getUserId();
 
   const match = useMatch('/:event/sign_event');
   useEffect(() => {
@@ -30,6 +32,10 @@ export default function EventController() {
     return (
       <h1>Loading</h1>
     )
+  }
+
+  if (!userId) {
+    navigate("/")
   }
 
   if (!eventInfo) {
@@ -60,7 +66,6 @@ export default function EventController() {
       return;
     }
     const eventId = eventInfo._id;
-    const userId = getUserId();
     await axios.post('http://127.0.0.1:5000/api/tickets',
       { eventId, userId, ticketCount }).then(async (response) => {
         const newTicketsAvailable = ticketsAvailable - ticketCount;
@@ -80,7 +85,7 @@ export default function EventController() {
       });
 
   }
-  
+
   const handleTicketCount = (value) => {
     if (value > ticketsAvailable) {
       value = ticketsAvailable
